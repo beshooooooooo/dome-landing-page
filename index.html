@@ -41,10 +41,7 @@
         /* ================= SIDEBAR ================= */
         .sidebar-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            inset: 0;
             background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(4px);
             z-index: 10001;
@@ -80,13 +77,8 @@
             box-shadow: 5px 0 25px rgba(0, 0, 0, 0.25);
         }
 
-        .sidebar.active {
-            right: 0;
-        }
-
-        [dir="ltr"] .sidebar.active {
-            left: 0;
-        }
+        .sidebar.active { right: 0; }
+        [dir="ltr"] .sidebar.active { left: 0; }
 
         .sidebar-header {
             display: flex;
@@ -103,11 +95,6 @@
             font-size: 26px;
             cursor: pointer;
             color: var(--accent-orange);
-            transition: transform 0.2s;
-        }
-
-        .sidebar-close:hover {
-            transform: scale(1.15);
         }
 
         .sidebar-user {
@@ -157,14 +144,11 @@
             transform: translateX(-5px);
         }
 
-        [dir="ltr"] .sidebar-link:hover {
-            transform: translateX(5px);
-        }
+        [dir="ltr"] .sidebar-link:hover { transform: translateX(5px); }
 
         .sidebar-btn-dash {
             background: var(--primary-navy);
             color: white !important;
-            margin-top: 5px;
         }
 
         .sidebar-footer {
@@ -178,9 +162,7 @@
         /* ================= HEADER ================= */
         header {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 72px;
             background: rgba(11, 37, 69, 0.95);
             backdrop-filter: blur(10px);
@@ -231,12 +213,6 @@
 
         .logo span { color: var(--accent-orange); }
 
-        nav.header-nav {
-            display: flex;
-            align-items: center;
-            gap: 22px;
-        }
-
         nav.header-nav ul {
             display: flex;
             gap: 20px;
@@ -249,9 +225,7 @@
             transition: color 0.2s;
         }
 
-        nav.header-nav ul li a:hover {
-            color: var(--accent-orange);
-        }
+        nav.header-nav ul li a:hover { color: var(--accent-orange); }
 
         .header-actions {
             display: flex;
@@ -292,7 +266,7 @@
             transform: translateY(-2px);
         }
 
-        /* ================= HERO SECTION ================= */
+        /* ================= HERO ================= */
         .hero {
             margin-top: 72px;
             height: calc(100vh - 72px);
@@ -305,7 +279,6 @@
             text-align: center;
             color: white;
             padding: 0 20px;
-            position: relative;
         }
 
         .hero-content {
@@ -326,9 +299,6 @@
             margin-bottom: 35px;
             line-height: 1.6;
             opacity: 0.95;
-            max-width: 760px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .cta-group {
@@ -396,7 +366,6 @@
             padding: 0 2rem;
             font-size: 16px;
             font-weight: 700;
-            letter-spacing: 0.5px;
         }
 
         @keyframes ticker {
@@ -404,20 +373,8 @@
             100% { transform: translate3d(100%, 0, 0); }
         }
 
-        [dir="ltr"] .ticker {
-            padding-left: 100%;
-            padding-right: 0;
-            animation: ticker-ltr 32s linear infinite;
-        }
-
-        @keyframes ticker-ltr {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(-100%, 0, 0); }
-        }
-
-        /* ================= SECTIONS COMMON ================= */
+        /* ================= SECTIONS ================= */
         .section-padding { padding: 75px 5%; }
-
         .section-title {
             text-align: center;
             font-size: 34px;
@@ -434,7 +391,7 @@
             border-radius: 2px;
         }
 
-        /* ================= APPS SECTION ================= */
+        /* ================= APPS ================= */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
@@ -458,7 +415,6 @@
 
         .app-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.12);
             border-top-color: var(--accent-orange);
         }
 
@@ -491,10 +447,8 @@
             align-self: center;
         }
 
-        /* ================= PACKAGES / PRICING ================= */
-        .pricing-section {
-            background: #ede0d4;
-        }
+        /* ================= PRICING ================= */
+        .pricing-section { background: #ede0d4; }
 
         .payment-method-toggle {
             display: flex;
@@ -512,12 +466,10 @@
             font-size: 15px;
             color: var(--primary-navy);
             cursor: pointer;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
             transition: var(--transition);
         }
 
         .method-btn.active {
-            border-color: var(--accent-orange);
             background: var(--accent-orange);
             color: white;
         }
@@ -537,7 +489,6 @@
             text-align: center;
             color: white;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -545,11 +496,7 @@
             transition: var(--transition);
         }
 
-        .pkg-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            border-color: var(--bg-sand);
-        }
+        .pkg-card:hover { transform: translateY(-8px); }
 
         .pkg-badge {
             font-size: 11px;
@@ -562,24 +509,9 @@
             margin-bottom: 12px;
         }
 
-        .pkg-title {
-            font-size: 26px;
-            font-weight: 800;
-            margin-bottom: 6px;
-        }
-
-        .pkg-desc {
-            font-size: 13px;
-            color: #d1d5db;
-            margin-bottom: 15px;
-        }
-
-        .pkg-price {
-            font-size: 32px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            color: #ffffff;
-        }
+        .pkg-title { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+        .pkg-desc { font-size: 13px; color: #d1d5db; margin-bottom: 15px; }
+        .pkg-price { font-size: 32px; font-weight: 800; margin-bottom: 20px; color: #ffffff; }
 
         .btn-pay {
             background: linear-gradient(to bottom, var(--accent-orange), var(--accent-hover));
@@ -594,14 +526,61 @@
             display: block;
         }
 
-        .btn-pay:hover {
-            filter: brightness(1.1);
-            transform: translateY(-2px);
+        .btn-pay:hover { filter: brightness(1.1); transform: translateY(-2px); }
+
+        /* ================= QUICK LOOK / VIDEOS ================= */
+        .videos-section {
+            background: #ffffff;
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            max-width: 1150px;
+            margin: 0 auto;
+        }
+
+        .video-card {
+            background: var(--bg-light);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .video-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+        }
+
+        .video-player {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: #000;
+            display: block;
+        }
+
+        .video-info {
+            padding: 16px 18px;
+            text-align: center;
+        }
+
+        .video-info h4 {
+            color: var(--primary-navy);
+            font-size: 17px;
+            margin-bottom: 4px;
+        }
+
+        .video-info p {
+            color: var(--text-muted);
+            font-size: 13px;
         }
 
         /* ================= HOW IT WORKS ================= */
         .how-section { background: white; }
-
         .steps-container {
             display: flex;
             flex-wrap: wrap;
@@ -623,9 +602,7 @@
             transition: var(--transition);
         }
 
-        .step-card:hover {
-            transform: translateY(-5px);
-        }
+        .step-card:hover { transform: translateY(-5px); }
 
         .step-num {
             width: 44px;
@@ -639,20 +616,10 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto 16px;
-            box-shadow: 0 4px 8px rgba(189, 88, 59, 0.35);
         }
 
-        .step-card h4 {
-            color: var(--primary-navy);
-            margin-bottom: 8px;
-            font-size: 18px;
-        }
-
-        .step-card p {
-            color: var(--text-muted);
-            font-size: 14px;
-            line-height: 1.5;
-        }
+        .step-card h4 { color: var(--primary-navy); margin-bottom: 8px; font-size: 18px; }
+        .step-card p { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
 
         /* ================= FOOTER ================= */
         footer {
@@ -685,7 +652,6 @@
             margin-bottom: 8px;
             display: block;
             font-size: 14px;
-            transition: color 0.2s;
         }
 
         .footer-col a:hover { color: var(--accent-orange); }
@@ -714,10 +680,7 @@
             padding: 20px;
         }
 
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
 
         .modal-box {
             background: white;
@@ -732,54 +695,28 @@
             transition: var(--transition);
         }
 
-        .modal-overlay.active .modal-box {
-            transform: translateY(0);
-        }
+        .modal-overlay.active .modal-box { transform: translateY(0); }
 
         .modal-close {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #999;
+            top: 15px; left: 15px;
+            background: none; border: none;
+            font-size: 24px; cursor: pointer; color: #999;
         }
 
-        [dir="ltr"] .modal-close {
-            left: auto;
-            right: 15px;
-        }
+        [dir="ltr"] .modal-close { left: auto; right: 15px; }
 
-        .modal-box h3 {
-            color: var(--primary-navy);
-            margin-bottom: 10px;
-            font-size: 22px;
-        }
-
-        .modal-box p {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
+        .modal-box h3 { color: var(--primary-navy); margin-bottom: 10px; font-size: 22px; }
+        .modal-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; line-height: 1.6; }
 
         .modal-input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            font-size: 15px;
-            margin-bottom: 15px;
-            outline: none;
+            width: 100%; padding: 12px 16px;
+            border: 1px solid #ccc; border-radius: 10px;
+            font-size: 15px; margin-bottom: 15px; outline: none;
         }
 
-        .modal-input:focus {
-            border-color: var(--accent-orange);
-        }
+        .modal-input:focus { border-color: var(--accent-orange); }
 
-        /* ================= RESPONSIVE ================= */
         @media (max-width: 900px) {
             nav.header-nav ul { display: none; }
         }
@@ -980,7 +917,51 @@
                 <div class="pkg-title" data-i18n="p4_t">50 كود</div>
                 <div class="pkg-desc" data-i18n="p4_d">50 مرة عرض نتائج</div>
                 <div class="pkg-price">210$</div>
-                <a href="https://v1.arch-dome.com/?action=payment&package=v1-50&method=card" id="pkg-link-50" class="btn-pay" data-i18n="btn_pay_secure">💳 ادفع الآن بأمان</a>
+                <a href="#" id="pkg-link-50" class="btn-pay" data-i18n="btn_pay_secure">💳 ادفع الآن بأمان</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUICK LOOK (VIDEOS SECTION) -->
+    <section class="section-padding videos-section" id="services">
+        <h2 class="section-title" data-i18n="quick_look">لمحة سريعة</h2>
+        <div class="section-divider"></div>
+
+        <div class="videos-grid">
+            <!-- Video 1 -->
+            <div class="video-card">
+                <video class="video-player" controls preload="metadata" playsinline>
+                    <source src="static/1st app.mp4" type="video/mp4">
+                    متصفحك لا يدعم تشغيل الفيديو.
+                </video>
+                <div class="video-info">
+                    <h4>DOME AI V 5.3.0</h4>
+                    <p data-i18n="v1_sub">اكتشف طرازك الديكوري ومودبورد الخامات</p>
+                </div>
+            </div>
+
+            <!-- Video 2 -->
+            <div class="video-card">
+                <video class="video-player" controls preload="metadata" playsinline>
+                    <source src="static/2nd app.mp4" type="video/mp4">
+                    متصفحك لا يدعم تشغيل الفيديو.
+                </video>
+                <div class="video-info">
+                    <h4>BOQ & Estimation (V2)</h4>
+                    <p data-i18n="app2_desc">مقايسة وحساب الكميات بدقة متناهية</p>
+                </div>
+            </div>
+
+            <!-- Video 3 -->
+            <div class="video-card">
+                <video class="video-player" controls preload="metadata" playsinline>
+                    <source src="static/3rd app.mp4" type="video/mp4">
+                    متصفحك لا يدعم تشغيل الفيديو.
+                </video>
+                <div class="video-info">
+                    <h4>Engineer AI Assistant (V3)</h4>
+                    <p data-i18n="app3_desc">المساعد الشخصي الذكي للمهندس</p>
+                </div>
             </div>
         </div>
     </section>
@@ -1060,14 +1041,32 @@
             <h3 id="waitlist-program-title">برنامج قيد التطوير</h3>
             <p data-i18n="modal_waitlist_desc">سجل بريدك الإلكتروني لتكون أول من يجرب هذا التطبيق مجاناً فور إطلاقه رسميًا.</p>
             <input type="email" class="modal-input" id="waitlist-email" placeholder="name@example.com" required>
-            <button class="btn-main" style="width:100%; border:none; padding:12px 0;" onclick="submitWaitlist()" data-i18n="btn_waitlist_submit">سجل اهتمامك الآن 🚀</button>
-            <div id="waitlist-status" style="margin-top:10px; font-weight:bold; font-size:14px;"></div>
+            <button class="btn-main" id="waitlist-submit-btn" style="width:100%; border:none; padding:12px 0;" onclick="submitWaitlist()" data-i18n="btn_waitlist_submit">سجل اهتمامك الآن 🚀</button>
+            <div id="waitlist-status" style="margin-top:12px; font-weight:bold; font-size:14px;"></div>
         </div>
     </div>
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Sidebar Control
+        // 1. تحديد ما إذا كان التشغيل محلياً
+        const isLocal = window.location.hostname === 'localhost' || 
+                        window.location.hostname === '127.0.0.1' || 
+                        window.location.protocol === 'file:';
+
+        const V1_BASE_URL = isLocal ? 'http://localhost:8501' : 'https://v1.arch-dome.com';
+
+        // 2. استبدال جميع الروابط في الصفحة لتشير للوكالهوست محلياً
+        function syncAppLinks() {
+            document.querySelectorAll('a').forEach(a => {
+                if (a.href && a.href.includes('v1.arch-dome.com')) {
+                    a.href = a.href.replace('https://v1.arch-dome.com', V1_BASE_URL);
+                }
+            });
+
+            // تحديث أزرار الباقات
+            setMethod(selectedMethod);
+        }
+
         function openSidebar() {
             document.getElementById('sidebar').classList.add('active');
             document.getElementById('sidebar-overlay').classList.add('active');
@@ -1078,7 +1077,6 @@
             document.getElementById('sidebar-overlay').classList.remove('active');
         }
 
-        // Waitlist Modal
         let currentWaitlistProgram = '';
         function openWaitlist(programName) {
             currentWaitlistProgram = programName;
@@ -1092,36 +1090,64 @@
             document.getElementById('waitlist-modal').classList.remove('active');
         }
 
-        function submitWaitlist() {
-            const email = document.getElementById('waitlist-email').value.trim();
+        async function submitWaitlist() {
+            const emailInput = document.getElementById('waitlist-email');
             const statusBox = document.getElementById('waitlist-status');
+            const submitBtn = document.getElementById('waitlist-submit-btn');
+            const email = emailInput.value.trim();
+
             if (!email || !email.includes('@')) {
                 statusBox.style.color = '#dc3545';
                 statusBox.innerText = currentLang === 'ar' ? 'يرجى كتابة بريد إلكتروني صحيح' : 'Please enter a valid email';
                 return;
             }
-            statusBox.style.color = '#28a745';
-            statusBox.innerText = currentLang === 'ar' ? 'تم تسجيل بريدك بنجاح! شكراً لك.' : 'Successfully registered! Thank you.';
-            setTimeout(closeWaitlist, 2000);
+
+            submitBtn.disabled = true;
+            statusBox.style.color = '#274055';
+            statusBox.innerText = currentLang === 'ar' ? 'جاري التسجيل...' : 'Registering...';
+
+            try {
+                const res = await fetch('/api/waitlist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, program: currentWaitlistProgram })
+                });
+
+                if (res.ok) {
+                    statusBox.style.color = '#28a745';
+                    statusBox.innerText = currentLang === 'ar' ? 'تم تسجيل بريدك بنجاح! شكراً لك 🚀' : 'Successfully registered! Thank you 🚀';
+                    setTimeout(closeWaitlist, 2200);
+                } else {
+                    throw new Error();
+                }
+            } catch (err) {
+                statusBox.style.color = '#dc3545';
+                statusBox.innerText = currentLang === 'ar' ? 'حدث خطأ، يرجى المحاولة لاحقاً.' : 'Error occurred, please try again.';
+            } finally {
+                submitBtn.disabled = false;
+            }
         }
 
-        // Payment Method Toggle
         let selectedMethod = 'card';
         function setMethod(method) {
             selectedMethod = method;
-            document.getElementById('btn-card').classList.toggle('active', method === 'card');
-            document.getElementById('btn-wallet').classList.toggle('active', method === 'wallet');
+            const btnCard = document.getElementById('btn-card');
+            const btnWallet = document.getElementById('btn-wallet');
+            if (btnCard) btnCard.classList.toggle('active', method === 'card');
+            if (btnWallet) btnWallet.classList.toggle('active', method === 'wallet');
             
-            // تحديث روابط الباقات لترسل وسيلة الدفع الصحيحة
             ['1', '10', '25', '50'].forEach(c => {
                 const link = document.getElementById(`pkg-link-${c}`);
                 if (link) {
-                    link.href = `https://v1.arch-dome.com/?action=payment&package=v1-${c}&method=${method}`;
+                    link.href = `${V1_BASE_URL}/?action=payment&package=v1-${c}&method=${method}`;
                 }
             });
         }
 
-        // Language System
+        // تشغيل فوري لمزامنة الروابط
+        syncAppLinks();
+        window.addEventListener('DOMContentLoaded', syncAppLinks);
+
         const translations = {
             ar: {
                 sb_welcome: "أهلاً بك",
@@ -1146,6 +1172,8 @@
                 app2_desc: "مقايسة وحساب الكميات بدقة متناهية. وفر وقتك في حساب مواد البناء والتشطيبات الهندسية.",
                 app3_desc: "المساعد الشخصي الذكي للمهندس. إجابات فورية على الاستشارات الهندسية وحلول الموقع.",
                 btn_waitlist: "بـلغـنـي لما يجهز 🔔",
+                quick_look: "لمحة سريعة",
+                v1_sub: "اكتشف طرازك الديكوري ومودبورد الخامات",
                 pkg_section_title: "🎁 باقات DOME AI V 5.3.0",
                 pay_card: "💳 بطاقة ائتمان",
                 pay_wallet: "📱 محفظة إلكترونية",
@@ -1191,6 +1219,8 @@
                 app2_desc: "Highly accurate BOQ & Estimation. Save time calculating building materials and finishes.",
                 app3_desc: "The smart personal assistant for engineers. Instant answers for engineering consultancies and site solutions.",
                 btn_waitlist: "Notify Me When Ready 🔔",
+                quick_look: "Quick Look",
+                v1_sub: "Discover your Decor Style & Material Moodboard",
                 pkg_section_title: "🎁 DOME AI V 5.3.0 Packages",
                 pay_card: "💳 Credit Card",
                 pay_wallet: "📱 Mobile Wallet",
