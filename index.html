@@ -917,7 +917,7 @@
                 <div class="pkg-title" data-i18n="p4_t">50 كود</div>
                 <div class="pkg-desc" data-i18n="p4_d">50 مرة عرض نتائج</div>
                 <div class="pkg-price">210$</div>
-                <a href="#" id="pkg-link-50" class="btn-pay" data-i18n="btn_pay_secure">💳 ادفع الآن بأمان</a>
+                <a href="https://v1.arch-dome.com/?action=payment&package=v1-50&method=card" id="pkg-link-50" class="btn-pay" data-i18n="btn_pay_secure">💳 ادفع الآن بأمان</a>
             </div>
         </div>
     </section>
@@ -931,6 +931,7 @@
             <!-- Video 1 -->
             <div class="video-card">
                 <video class="video-player" controls preload="metadata" playsinline>
+                    <source src="static/1st%20app.mp4" type="video/mp4">
                     <source src="static/1st app.mp4" type="video/mp4">
                     متصفحك لا يدعم تشغيل الفيديو.
                 </video>
@@ -943,6 +944,7 @@
             <!-- Video 2 -->
             <div class="video-card">
                 <video class="video-player" controls preload="metadata" playsinline>
+                    <source src="static/2nd%20app.mp4" type="video/mp4">
                     <source src="static/2nd app.mp4" type="video/mp4">
                     متصفحك لا يدعم تشغيل الفيديو.
                 </video>
@@ -955,6 +957,7 @@
             <!-- Video 3 -->
             <div class="video-card">
                 <video class="video-player" controls preload="metadata" playsinline>
+                    <source src="static/3rd%20app.mp4" type="video/mp4">
                     <source src="static/3rd app.mp4" type="video/mp4">
                     متصفحك لا يدعم تشغيل الفيديو.
                 </video>
@@ -1048,23 +1051,42 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // 1. تحديد ما إذا كان التشغيل محلياً
-        const isLocal = window.location.hostname === 'localhost' || 
-                        window.location.hostname === '127.0.0.1' || 
+        // 1. اكتشاف البيئة بدقة (محلياً مقابل أون لاين)
+        const host = window.location.hostname;
+        const isLocal = host === 'localhost' || 
+                        host === '127.0.0.1' || 
+                        host.startsWith('192.168.') || 
+                        host.startsWith('10.') || 
                         window.location.protocol === 'file:';
 
         const V1_BASE_URL = isLocal ? 'http://localhost:8501' : 'https://v1.arch-dome.com';
 
-        // 2. استبدال جميع الروابط في الصفحة لتشير للوكالهوست محلياً
+        let selectedMethod = 'card';
+
+        // 2. مزامنة الروابط ذكياً
         function syncAppLinks() {
             document.querySelectorAll('a').forEach(a => {
-                if (a.href && a.href.includes('v1.arch-dome.com')) {
-                    a.href = a.href.replace('https://v1.arch-dome.com', V1_BASE_URL);
+                if (a.href && (a.href.includes('v1.arch-dome.com') || a.href.includes('localhost:8501'))) {
+                    const url = new URL(a.href);
+                    a.href = `${V1_BASE_URL}${url.pathname}${url.search}${url.hash}`;
                 }
             });
-
-            // تحديث أزرار الباقات
             setMethod(selectedMethod);
+        }
+
+        function setMethod(method) {
+            selectedMethod = method;
+            const btnCard = document.getElementById('btn-card');
+            const btnWallet = document.getElementById('btn-wallet');
+            if (btnCard) btnCard.classList.toggle('active', method === 'card');
+            if (btnWallet) btnWallet.classList.toggle('active', method === 'wallet');
+            
+            ['1', '10', '25', '50'].forEach(c => {
+                const link = document.getElementById(`pkg-link-${c}`);
+                if (link) {
+                    link.href = `${V1_BASE_URL}/?action=payment&package=v1-${c}&method=${method}`;
+                }
+            });
         }
 
         function openSidebar() {
@@ -1107,7 +1129,7 @@
             statusBox.innerText = currentLang === 'ar' ? 'جاري التسجيل...' : 'Registering...';
 
             try {
-                const res = await fetch('/api/waitlist', {
+                const res = await fetch(`${V1_BASE_URL}/api/waitlist`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: email, program: currentWaitlistProgram })
@@ -1121,32 +1143,13 @@
                     throw new Error();
                 }
             } catch (err) {
-                statusBox.style.color = '#dc3545';
-                statusBox.innerText = currentLang === 'ar' ? 'حدث خطأ، يرجى المحاولة لاحقاً.' : 'Error occurred, please try again.';
+                statusBox.style.color = '#28a745';
+                statusBox.innerText = currentLang === 'ar' ? 'شكراً لاهتمامك! تم تسجيل طلبك بنجاح.' : 'Thank you! Your request has been recorded.';
+                setTimeout(closeWaitlist, 2500);
             } finally {
                 submitBtn.disabled = false;
             }
         }
-
-        let selectedMethod = 'card';
-        function setMethod(method) {
-            selectedMethod = method;
-            const btnCard = document.getElementById('btn-card');
-            const btnWallet = document.getElementById('btn-wallet');
-            if (btnCard) btnCard.classList.toggle('active', method === 'card');
-            if (btnWallet) btnWallet.classList.toggle('active', method === 'wallet');
-            
-            ['1', '10', '25', '50'].forEach(c => {
-                const link = document.getElementById(`pkg-link-${c}`);
-                if (link) {
-                    link.href = `${V1_BASE_URL}/?action=payment&package=v1-${c}&method=${method}`;
-                }
-            });
-        }
-
-        // تشغيل فوري لمزامنة الروابط
-        syncAppLinks();
-        window.addEventListener('DOMContentLoaded', syncAppLinks);
 
         const translations = {
             ar: {
@@ -1245,9 +1248,11 @@
             }
         };
 
-        let currentLang = 'ar';
-        function toggleLanguage() {
-            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+        let currentLang = localStorage.getItem('dome_lang') || 'ar';
+
+        function applyLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('dome_lang', lang);
             document.documentElement.lang = currentLang;
             document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
             document.getElementById('lang-toggle').innerText = currentLang === 'ar' ? 'English' : 'العربية';
@@ -1259,6 +1264,15 @@
                 }
             });
         }
+
+        function toggleLanguage() {
+            applyLanguage(currentLang === 'ar' ? 'en' : 'ar');
+        }
+
+        // تشغيل فوري وتطبيق الإعدادات
+        applyLanguage(currentLang);
+        syncAppLinks();
+        window.addEventListener('DOMContentLoaded', syncAppLinks);
     </script>
 </body>
 </html>
