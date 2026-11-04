@@ -1,1255 +1,1278 @@
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        scroll-behavior: smooth;
-    }
-
-    body {
-        background-color: var(--bg-sand);
-        color: var(--text-dark);
-        overflow-x: hidden;
-        position: relative;
-    }
-
-    a { text-decoration: none; color: inherit; }
-    ul { list-style: none; }
-
-    /* ================= SIDEBAR ================= */
-    .sidebar-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(4px);
-        z-index: 10001;
-        opacity: 0;
-        visibility: hidden;
-        transition: var(--transition);
-    }
-
-    .sidebar-overlay.active {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .sidebar {
-        position: fixed;
-        top: 0;
-        right: -320px;
-        width: 300px;
-        height: 100%;
-        background: #ffffff;
-        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.25);
-        z-index: 10002;
-        padding: 25px 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        transition: var(--transition);
-    }
-
-    [dir="ltr"] .sidebar {
-        right: auto;
-        left: -320px;
-        box-shadow: 5px 0 25px rgba(0, 0, 0, 0.25);
-    }
-
-    .sidebar.active { right: 0; }
-    [dir="ltr"] .sidebar.active { left: 0; }
-
-    .sidebar-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-bottom: 2px solid var(--bg-light);
-        padding-bottom: 15px;
-        margin-bottom: 20px;
-    }
-
-    .sidebar-close {
-        background: none;
-        border: none;
-        font-size: 26px;
-        cursor: pointer;
-        color: var(--accent-orange);
-    }
-
-    .sidebar-user {
-        background: var(--bg-light);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        padding: 12px 15px;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .sidebar-user-avatar {
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        background: var(--primary-navy);
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-    }
-
-    .sidebar-links {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        flex-grow: 1;
-    }
-
-    .sidebar-link {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 12px 16px;
-        border-radius: 10px;
-        font-weight: 600;
-        color: var(--primary-navy);
-        transition: var(--transition);
-    }
-
-    .sidebar-link:hover {
-        background: var(--accent-orange);
-        color: white !important;
-        transform: translateX(-5px);
-    }
-
-    [dir="ltr"] .sidebar-link:hover { transform: translateX(5px); }
-
-    .sidebar-btn-dash {
-        background: var(--primary-navy);
-        color: white !important;
-    }
-
-    .sidebar-footer {
-        border-top: 1px solid var(--bg-light);
-        padding-top: 15px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    /* ================= HEADER ================= */
-    header {
-        position: fixed;
-        top: 0; left: 0; right: 0;
-        height: 72px;
-        background: rgba(11, 37, 69, 0.95);
-        backdrop-filter: blur(10px);
-        border-bottom: 2px solid var(--primary-navy);
-        z-index: 10000;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 4%;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-    }
-
-    .header-left {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .menu-btn {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        color: white;
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        cursor: pointer;
-        transition: var(--transition);
-    }
-
-    .menu-btn:hover {
-        background: var(--accent-orange);
-        border-color: var(--accent-orange);
-        transform: scale(1.08);
-    }
-
-    .logo {
-        color: var(--text-light);
-        font-size: 24px;
-        font-weight: 800;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .logo span { color: var(--accent-orange); }
-
-    nav.header-nav ul {
-        display: flex;
-        gap: 20px;
-    }
-
-    nav.header-nav ul li a {
-        color: var(--text-light);
-        font-weight: 600;
-        font-size: 15px;
-        transition: color 0.2s;
-    }
-
-    nav.header-nav ul li a:hover { color: var(--accent-orange); }
-
-    .header-actions {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .lang-btn {
-        background: transparent;
-        color: white;
-        border: 1px solid rgba(255, 255, 255, 0.6);
-        padding: 6px 14px;
-        border-radius: 20px;
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 13px;
-        transition: var(--transition);
-    }
-
-    .lang-btn:hover {
-        background: white;
-        color: var(--primary-navy);
-    }
-
-    .btn-header-login {
-        background-color: var(--accent-orange);
-        color: white !important;
-        padding: 9px 20px;
-        border-radius: 25px;
-        font-weight: bold;
-        font-size: 14px;
-        transition: var(--transition);
-        box-shadow: 0 4px 10px rgba(189, 88, 59, 0.3);
-    }
-
-    .btn-header-login:hover {
-        background-color: var(--accent-hover);
-        transform: translateY(-2px);
-    }
-
-    /* ================= HERO ================= */
-    .hero {
-        margin-top: 72px;
-        height: calc(100vh - 72px);
-        min-height: 580px;
-        background: linear-gradient(135deg, rgba(39, 64, 85, 0.88), rgba(11, 37, 69, 0.92)), 
-                    url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        color: white;
-        padding: 0 20px;
-    }
-
-    .hero-content {
-        max-width: 860px;
-        animation: fadeIn 1s ease-out;
-    }
-
-    .hero h1 {
-        font-size: clamp(32px, 5vw, 58px);
-        margin-bottom: 20px;
-        font-weight: 800;
-        text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-        line-height: 1.25;
-    }
-
-    .hero p {
-        font-size: clamp(16px, 2vw, 22px);
-        margin-bottom: 35px;
-        line-height: 1.6;
-        opacity: 0.95;
-    }
-
-    .cta-group {
-        display: flex;
-        gap: 16px;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .btn-main {
-        background: linear-gradient(to bottom, var(--accent-orange), var(--accent-hover));
-        color: white !important;
-        padding: 14px 34px;
-        border-radius: 30px;
-        font-size: 17px;
-        font-weight: bold;
-        box-shadow: 0 8px 20px rgba(189, 88, 59, 0.35);
-        transition: var(--transition);
-        border-bottom: 4px solid #6e301f;
-        display: inline-block;
-    }
-
-    .btn-main:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 25px rgba(189, 88, 59, 0.45);
-    }
-
-    .btn-outline-white {
-        background: transparent;
-        color: white !important;
-        padding: 14px 34px;
-        border-radius: 30px;
-        font-size: 17px;
-        font-weight: bold;
-        border: 2px solid white;
-        transition: var(--transition);
-        display: inline-block;
-    }
-
-    .btn-outline-white:hover {
-        background: white;
-        color: var(--primary-navy) !important;
-        transform: translateY(-3px);
-    }
-
-    /* ================= TICKER ================= */
-    .ticker-wrap {
-        width: 100%;
-        overflow: hidden;
-        background-color: var(--primary-navy);
-        color: var(--bg-sand);
-        padding: 12px 0;
-        border-bottom: 2px solid var(--accent-orange);
-    }
-
-    .ticker {
-        display: inline-block;
-        white-space: nowrap;
-        padding-right: 100%;
-        animation: ticker 32s linear infinite;
-    }
-
-    .ticker__item {
-        display: inline-block;
-        padding: 0 2rem;
-        font-size: 16px;
-        font-weight: 700;
-    }
-
-    @keyframes ticker {
-        0% { transform: translate3d(0, 0, 0); }
-        100% { transform: translate3d(100%, 0, 0); }
-    }
-
-    /* ================= SECTIONS ================= */
-    .section-padding { padding: 75px 5%; }
-    .section-title {
-        text-align: center;
-        font-size: 34px;
-        color: var(--accent-orange);
-        margin-bottom: 8px;
-        font-weight: 800;
-    }
-
-    .section-divider {
-        width: 75px;
-        height: 4px;
-        background: linear-gradient(90deg, transparent, var(--accent-orange), transparent);
-        margin: 0 auto 45px;
-        border-radius: 2px;
-    }
-
-    /* ================= APPS ================= */
-    .cards-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-        gap: 25px;
-        max-width: 1150px;
-        margin: 0 auto;
-    }
-
-    .app-card {
-        background: white;
-        border-radius: 18px;
-        padding: 30px 22px;
-        text-align: center;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-        border-top: 4px solid var(--primary-light);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        transition: var(--transition);
-    }
-
-    .app-card:hover {
-        transform: translateY(-8px);
-        border-top-color: var(--accent-orange);
-    }
-
-    .app-icon { font-size: 48px; margin-bottom: 15px; }
-
-    .app-card h3 {
-        color: var(--primary-navy);
-        font-size: 22px;
-        margin-bottom: 12px;
-        font-weight: 700;
-    }
-
-    .app-card p {
-        color: var(--text-muted);
-        line-height: 1.6;
-        margin-bottom: 22px;
-        font-size: 15px;
-        flex-grow: 1;
-    }
-
-    .badge-dev {
-        background-color: #f1f1f1;
-        color: #777;
-        padding: 4px 12px;
-        border-radius: 12px;
-        font-size: 12px;
-        font-weight: bold;
-        display: inline-block;
-        margin-bottom: 12px;
-        align-self: center;
-    }
-
-    /* ================= PRICING ================= */
-    .pricing-section { background: #ede0d4; }
-
-    .payment-method-toggle {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        margin-bottom: 35px;
-    }
-
-    .method-btn {
-        background: white;
-        border: 2px solid transparent;
-        padding: 10px 24px;
-        border-radius: 25px;
-        font-weight: bold;
-        font-size: 15px;
-        color: var(--primary-navy);
-        cursor: pointer;
-        transition: var(--transition);
-    }
-
-    .method-btn.active {
-        background: var(--accent-orange);
-        color: white;
-    }
-
-    .packages-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 20px;
-        max-width: 1150px;
-        margin: 0 auto;
-    }
-
-    .pkg-card {
-        background: var(--card-dark);
-        border-radius: 18px;
-        padding: 28px 18px;
-        text-align: center;
-        color: white;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        min-height: 310px;
-        transition: var(--transition);
-    }
-
-    .pkg-card:hover { transform: translateY(-8px); }
-
-    .pkg-badge {
-        font-size: 11px;
-        font-weight: 700;
-        color: var(--primary-navy);
-        background: var(--bg-sand);
-        padding: 4px 12px;
-        border-radius: 12px;
-        align-self: center;
-        margin-bottom: 12px;
-    }
-
-    .pkg-title { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
-    .pkg-desc { font-size: 13px; color: #d1d5db; margin-bottom: 15px; }
-    .pkg-price { font-size: 32px; font-weight: 800; margin-bottom: 20px; color: #ffffff; }
-
-    .btn-pay {
-        background: linear-gradient(to bottom, var(--accent-orange), var(--accent-hover));
-        color: white !important;
-        padding: 12px 0;
-        width: 100%;
-        border-radius: 12px;
-        font-weight: bold;
-        font-size: 15px;
-        border-bottom: 3px solid #6e301f;
-        transition: var(--transition);
-        display: block;
-    }
-
-    .btn-pay:hover { filter: brightness(1.1); transform: translateY(-2px); }
-
-    /* ================= QUICK LOOK / VIDEOS ================= */
-    .videos-section {
-        background: #ffffff;
-    }
-
-    .videos-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 25px;
-        max-width: 1150px;
-        margin: 0 auto;
-    }
-
-    .video-card {
-        background: var(--bg-light);
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-        border: 1px solid var(--border-color);
-        transition: var(--transition);
-    }
-
-    .video-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
-    }
-
-    .video-player {
-        width: 100%;
-        height: 220px;
-        object-fit: cover;
-        background: #000;
-        display: block;
-    }
-
-    .video-info {
-        padding: 16px 18px;
-        text-align: center;
-    }
-
-    .video-info h4 {
-        color: var(--primary-navy);
-        font-size: 17px;
-        margin-bottom: 4px;
-    }
-
-    .video-info p {
-        color: var(--text-muted);
-        font-size: 13px;
-    }
-
-    /* ================= HOW IT WORKS ================= */
-    .how-section { background: white; }
-    .steps-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 22px;
-        max-width: 1150px;
-        margin: 0 auto;
-    }
-
-    .step-card {
-        flex: 1;
-        min-width: 220px;
-        text-align: center;
-        padding: 26px 18px;
-        background: var(--bg-light);
-        border-radius: 14px;
-        border-top: 3px solid var(--accent-orange);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-        transition: var(--transition);
-    }
-
-    .step-card:hover { transform: translateY(-5px); }
-
-    .step-num {
-        width: 44px;
-        height: 44px;
-        background: var(--accent-orange);
-        color: white;
-        font-size: 20px;
-        font-weight: bold;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 16px;
-    }
-
-    .step-card h4 { color: var(--primary-navy); margin-bottom: 8px; font-size: 18px; }
-    .step-card p { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
-
-    /* ================= FOOTER ================= */
-    footer {
-        background-color: var(--primary-navy);
-        color: white;
-        padding: 60px 5% 25px;
-        border-top: 5px solid var(--accent-orange);
-    }
-
-    .footer-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 35px;
-        max-width: 1150px;
-        margin: 0 auto 40px;
-    }
-
-    .footer-col h3 {
-        font-size: 20px;
-        margin-bottom: 18px;
-        color: white;
-        border-bottom: 2px solid var(--accent-orange);
-        display: inline-block;
-        padding-bottom: 4px;
-    }
-
-    .footer-col p, .footer-col a {
-        color: #d1d5db;
-        line-height: 1.8;
-        margin-bottom: 8px;
-        display: block;
-        font-size: 14px;
-    }
-
-    .footer-col a:hover { color: var(--accent-orange); }
-
-    .footer-bottom {
-        text-align: center;
-        padding-top: 20px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        color: #9ca3af;
-        font-size: 13px;
-    }
-
-    /* ================= WAITLIST MODAL ================= */
-    .modal-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.65);
-        backdrop-filter: blur(4px);
-        z-index: 20000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        visibility: hidden;
-        transition: var(--transition);
-        padding: 20px;
-    }
-
-    .modal-overlay.active { opacity: 1; visibility: visible; }
-
-    .modal-box {
-        background: white;
-        border-radius: 18px;
-        padding: 30px;
-        max-width: 440px;
-        width: 100%;
-        text-align: center;
-        box-shadow: 0 20px 45px rgba(0,0,0,0.3);
-        position: relative;
-        transform: translateY(20px);
-        transition: var(--transition);
-    }
-
-    .modal-overlay.active .modal-box { transform: translateY(0); }
-
-    .modal-close {
-        position: absolute;
-        top: 15px; left: 15px;
-        background: none; border: none;
-        font-size: 24px; cursor: pointer; color: #999;
-    }
-
-    [dir="ltr"] .modal-close { left: auto; right: 15px; }
-
-    .modal-box h3 { color: var(--primary-navy); margin-bottom: 10px; font-size: 22px; }
-    .modal-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; line-height: 1.6; }
-
-    .modal-input {
-        width: 100%; padding: 12px 16px;
-        border: 1px solid #ccc; border-radius: 10px;
-        font-size: 15px; margin-bottom: 15px; outline: none;
-    }
-
-    .modal-input:focus { border-color: var(--accent-orange); }
-
-    @media (max-width: 900px) {
-        nav.header-nav ul { display: none; }
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-</style>
-
-
-<!-- SIDEBAR OVERLAY & DRAWER -->
-<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
-
-<aside class="sidebar" id="sidebar">
-    <div>
-        <div class="sidebar-header">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arch-Dome | حلول هندسية ومعمارية مبتكرة</title>
+    <style>
+        :root {
+            --primary-navy: #0b2545;
+            --primary-light: #274055;
+            --accent-orange: #BD583B;
+            --accent-hover: #9c452d;
+            --bg-sand: #E5D0C1;
+            --bg-light: #f8f3ef;
+            --card-dark: #274055;
+            --text-dark: #274055;
+            --text-light: #ffffff;
+            --text-muted: #666666;
+            --border-color: rgba(189, 88, 59, 0.25);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-sand);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ================= SIDEBAR ================= */
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 10001;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            height: 100%;
+            background: #ffffff;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.25);
+            z-index: 10002;
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+
+        [dir="ltr"] .sidebar {
+            right: auto;
+            left: -320px;
+            box-shadow: 5px 0 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .sidebar.active { right: 0; }
+        [dir="ltr"] .sidebar.active { left: 0; }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid var(--bg-light);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-close {
+            background: none;
+            border: none;
+            font-size: 26px;
+            cursor: pointer;
+            color: var(--accent-orange);
+        }
+
+        .sidebar-user {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-user-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--primary-navy);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .sidebar-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-grow: 1;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-weight: 600;
+            color: var(--primary-navy);
+            transition: var(--transition);
+        }
+
+        .sidebar-link:hover {
+            background: var(--accent-orange);
+            color: white !important;
+            transform: translateX(-5px);
+        }
+
+        [dir="ltr"] .sidebar-link:hover { transform: translateX(5px); }
+
+        .sidebar-btn-dash {
+            background: var(--primary-navy);
+            color: white !important;
+        }
+
+        .sidebar-footer {
+            border-top: 1px solid var(--bg-light);
+            padding-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* ================= HEADER ================= */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 72px;
+            background: rgba(11, 37, 69, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--primary-navy);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 4%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: white;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .menu-btn:hover {
+            background: var(--accent-orange);
+            border-color: var(--accent-orange);
+            transform: scale(1.08);
+        }
+
+        .logo {
+            color: var(--text-light);
+            font-size: 24px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo span { color: var(--accent-orange); }
+
+        nav.header-nav ul {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav.header-nav ul li a {
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+
+        nav.header-nav ul li a:hover { color: var(--accent-orange); }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: var(--transition);
+        }
+
+        .lang-btn:hover {
+            background: white;
+            color: var(--primary-navy);
+        }
+
+        .btn-header-login {
+            background-color: var(--accent-orange);
+            color: white !important;
+            padding: 9px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(189, 88, 59, 0.3);
+        }
+
+        .btn-header-login:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        /* ================= HERO ================= */
+        .hero {
+            margin-top: 72px;
+            height: calc(100vh - 72px);
+            min-height: 580px;
+            background: linear-gradient(135deg, rgba(39, 64, 85, 0.88), rgba(11, 37, 69, 0.92)), 
+                        url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero-content {
+            max-width: 860px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 58px);
+            margin-bottom: 20px;
+            font-weight: 800;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            line-height: 1.25;
+        }
+
+        .hero p {
+            font-size: clamp(16px, 2vw, 22px);
+            margin-bottom: 35px;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-main {
+            background: linear-gradient(to bottom, var(--accent-orange), var(--accent-hover));
+            color: white !important;
+            padding: 14px 34px;
+            border-radius: 30px;
+            font-size: 17px;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(189, 88, 59, 0.35);
+            transition: var(--transition);
+            border-bottom: 4px solid #6e301f;
+            display: inline-block;
+        }
+
+        .btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(189, 88, 59, 0.45);
+        }
+
+        .btn-outline-white {
+            background: transparent;
+            color: white !important;
+            padding: 14px 34px;
+            border-radius: 30px;
+            font-size: 17px;
+            font-weight: bold;
+            border: 2px solid white;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .btn-outline-white:hover {
+            background: white;
+            color: var(--primary-navy) !important;
+            transform: translateY(-3px);
+        }
+
+        /* ================= TICKER ================= */
+        .ticker-wrap {
+            width: 100%;
+            overflow: hidden;
+            background-color: var(--primary-navy);
+            color: var(--bg-sand);
+            padding: 12px 0;
+            border-bottom: 2px solid var(--accent-orange);
+        }
+
+        .ticker {
+            display: inline-block;
+            white-space: nowrap;
+            padding-right: 100%;
+            animation: ticker 32s linear infinite;
+        }
+
+        .ticker__item {
+            display: inline-block;
+            padding: 0 2rem;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(100%, 0, 0); }
+        }
+
+        /* ================= SECTIONS ================= */
+        .section-padding { padding: 75px 5%; }
+        .section-title {
+            text-align: center;
+            font-size: 34px;
+            color: var(--accent-orange);
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .section-divider {
+            width: 75px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--accent-orange), transparent);
+            margin: 0 auto 45px;
+            border-radius: 2px;
+        }
+
+        /* ================= APPS ================= */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 25px;
+            max-width: 1150px;
+            margin: 0 auto;
+        }
+
+        .app-card {
+            background: white;
+            border-radius: 18px;
+            padding: 30px 22px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            border-top: 4px solid var(--primary-light);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+
+        .app-card:hover {
+            transform: translateY(-8px);
+            border-top-color: var(--accent-orange);
+        }
+
+        .app-icon { font-size: 48px; margin-bottom: 15px; }
+
+        .app-card h3 {
+            color: var(--primary-navy);
+            font-size: 22px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .app-card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 22px;
+            font-size: 15px;
+            flex-grow: 1;
+        }
+
+        .badge-dev {
+            background-color: #f1f1f1;
+            color: #777;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 12px;
+            align-self: center;
+        }
+
+        /* ================= PRICING ================= */
+        .pricing-section { background: #ede0d4; }
+
+        .payment-method-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .method-btn {
+            background: white;
+            border: 2px solid transparent;
+            padding: 10px 24px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 15px;
+            color: var(--primary-navy);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .method-btn.active {
+            background: var(--accent-orange);
+            color: white;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            max-width: 1150px;
+            margin: 0 auto;
+        }
+
+        .pkg-card {
+            background: var(--card-dark);
+            border-radius: 18px;
+            padding: 28px 18px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 310px;
+            transition: var(--transition);
+        }
+
+        .pkg-card:hover { transform: translateY(-8px); }
+
+        .pkg-badge {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--primary-navy);
+            background: var(--bg-sand);
+            padding: 4px 12px;
+            border-radius: 12px;
+            align-self: center;
+            margin-bottom: 12px;
+        }
+
+        .pkg-title { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+        .pkg-desc { font-size: 13px; color: #d1d5db; margin-bottom: 15px; }
+        .pkg-price { font-size: 32px; font-weight: 800; margin-bottom: 20px; color: #ffffff; }
+
+        .btn-pay {
+            background: linear-gradient(to bottom, var(--accent-orange), var(--accent-hover));
+            color: white !important;
+            padding: 12px 0;
+            width: 100%;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 15px;
+            border-bottom: 3px solid #6e301f;
+            transition: var(--transition);
+            display: block;
+        }
+
+        .btn-pay:hover { filter: brightness(1.1); transform: translateY(-2px); }
+
+        /* ================= QUICK LOOK / VIDEOS ================= */
+        .videos-section {
+            background: #ffffff;
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            max-width: 1150px;
+            margin: 0 auto;
+        }
+
+        .video-card {
+            background: var(--bg-light);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .video-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+        }
+
+        .video-player {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: #000;
+            display: block;
+        }
+
+        .video-info {
+            padding: 16px 18px;
+            text-align: center;
+        }
+
+        .video-info h4 {
+            color: var(--primary-navy);
+            font-size: 17px;
+            margin-bottom: 4px;
+        }
+
+        .video-info p {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* ================= HOW IT WORKS ================= */
+        .how-section { background: white; }
+        .steps-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 22px;
+            max-width: 1150px;
+            margin: 0 auto;
+        }
+
+        .step-card {
+            flex: 1;
+            min-width: 220px;
+            text-align: center;
+            padding: 26px 18px;
+            background: var(--bg-light);
+            border-radius: 14px;
+            border-top: 3px solid var(--accent-orange);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            transition: var(--transition);
+        }
+
+        .step-card:hover { transform: translateY(-5px); }
+
+        .step-num {
+            width: 44px;
+            height: 44px;
+            background: var(--accent-orange);
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+
+        .step-card h4 { color: var(--primary-navy); margin-bottom: 8px; font-size: 18px; }
+        .step-card p { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
+
+        /* ================= FOOTER ================= */
+        footer {
+            background-color: var(--primary-navy);
+            color: white;
+            padding: 60px 5% 25px;
+            border-top: 5px solid var(--accent-orange);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 35px;
+            max-width: 1150px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 18px;
+            color: white;
+            border-bottom: 2px solid var(--accent-orange);
+            display: inline-block;
+            padding-bottom: 4px;
+        }
+
+        .footer-col p, .footer-col a {
+            color: #d1d5db;
+            line-height: 1.8;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 14px;
+        }
+
+        .footer-col a:hover { color: var(--accent-orange); }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        /* ================= WAITLIST MODAL ================= */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(4px);
+            z-index: 20000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            padding: 20px;
+        }
+
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+
+        .modal-box {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            max-width: 440px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+            position: relative;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active .modal-box { transform: translateY(0); }
+
+        .modal-close {
+            position: absolute;
+            top: 15px; left: 15px;
+            background: none; border: none;
+            font-size: 24px; cursor: pointer; color: #999;
+        }
+
+        [dir="ltr"] .modal-close { left: auto; right: 15px; }
+
+        .modal-box h3 { color: var(--primary-navy); margin-bottom: 10px; font-size: 22px; }
+        .modal-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; line-height: 1.6; }
+
+        .modal-input {
+            width: 100%; padding: 12px 16px;
+            border: 1px solid #ccc; border-radius: 10px;
+            font-size: 15px; margin-bottom: 15px; outline: none;
+        }
+
+        .modal-input:focus { border-color: var(--accent-orange); }
+
+        @media (max-width: 900px) {
+            nav.header-nav ul { display: none; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR OVERLAY & DRAWER -->
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+    
+    <aside class="sidebar" id="sidebar">
+        <div>
+            <div class="sidebar-header">
+                <div class="logo">Arch<span>Dome</span></div>
+                <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="sidebar-user-avatar">👤</div>
+                <div>
+                    <div style="font-size: 12px; color: var(--text-muted);" data-i18n="sb_welcome">أهلاً بك</div>
+                    <div style="font-weight: 700; color: var(--primary-navy);" data-i18n="sb_guest">زائر كريم</div>
+                </div>
+            </div>
+
+            <div class="sidebar-links">
+                <a href="#hero" class="sidebar-link" onclick="closeSidebar()">
+                    <span>🏠</span> <span data-i18n="nav_home">الرئيسية</span>
+                </a>
+                <a href="https://v1.arch-dome.com/?action=dashboard" class="sidebar-link sidebar-btn-dash">
+                    <span>⚙️</span> <span data-i18n="nav_dash">لوحة التحكم</span>
+                </a>
+                <a href="#apps" class="sidebar-link" onclick="closeSidebar()">
+                    <span>🤖</span> <span data-i18n="nav_apps">تطبيقاتنا</span>
+                </a>
+                <a href="#packages" class="sidebar-link" onclick="closeSidebar()">
+                    <span>🎁</span> <span data-i18n="nav_pricing">باقات الأسعار</span>
+                </a>
+                <a href="#how-it-works" class="sidebar-link" onclick="closeSidebar()">
+                    <span>💡</span> <span data-i18n="nav_how">كيف نعمل</span>
+                </a>
+                <a href="#about" class="sidebar-link" onclick="closeSidebar()">
+                    <span>ℹ️</span> <span data-i18n="nav_about">من نحن</span>
+                </a>
+                <a href="#contact" class="sidebar-link" onclick="closeSidebar()">
+                    <span>📞</span> <span data-i18n="nav_contact">تواصل معنا</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="sidebar-footer">
+            <a href="https://v1.arch-dome.com/?action=login" class="btn-main" style="text-align:center; padding:10px 0; font-size:15px;" data-i18n="nav_login">تسجيل الدخول</a>
+            <a href="https://v1.arch-dome.com/?action=logout" class="sidebar-link" style="color:var(--accent-orange); justify-content:center; padding:6px 0;">
+                <span>👋</span> <span data-i18n="nav_logout">تسجيل خروج</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-left">
+            <button class="menu-btn" onclick="openSidebar()" aria-label="Open Sidebar">☰</button>
             <div class="logo">Arch<span>Dome</span></div>
-            <button class="sidebar-close" onclick="closeSidebar()">✕</button>
         </div>
 
-        <div class="sidebar-user">
-            <div class="sidebar-user-avatar">👤</div>
-            <div>
-                <div style="font-size: 12px; color: var(--text-muted);" data-i18n="sb_welcome">أهلاً بك</div>
-                <div style="font-weight: 700; color: var(--primary-navy);" data-i18n="sb_guest">زائر كريم</div>
+        <nav class="header-nav">
+            <ul>
+                <li><a href="#hero" data-i18n="nav_home">الرئيسية</a></li>
+                <li><a href="#apps" data-i18n="nav_apps">تطبيقاتنا</a></li>
+                <li><a href="#packages" data-i18n="nav_pricing">الباقات</a></li>
+                <li><a href="#how-it-works" data-i18n="nav_how">كيف نعمل</a></li>
+                <li><a href="#about" data-i18n="nav_about">من نحن</a></li>
+                <li><a href="#contact" data-i18n="nav_contact">تواصل معنا</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-actions">
+            <button class="lang-btn" id="lang-toggle" onclick="toggleLanguage()">English</button>
+            <a href="https://v1.arch-dome.com/?action=login" class="btn-header-login" data-i18n="nav_login">تسجيل الدخول</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1 data-i18n="hero_title">اكتشف أدواتنا الذكية</h1>
+            <p data-i18n="hero_desc">حلول DOME AI المتكاملة: اكتشف طرازك، احسب كمياتك، واستشر مساعدك الذكي - بسرعة واحترافية.</p>
+            <div class="cta-group">
+                <a href="https://v1.arch-dome.com" class="btn-main" data-i18n="hero_btn1">🎁 جرب DOME V1 مجاناً</a>
+                <a href="#packages" class="btn-outline-white" data-i18n="hero_btn2">استعرض الباقات</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TICKER -->
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <span class="ticker__item">DOME AI V 5.3.0</span>
+            <span class="ticker__item">✦</span>
+            <span class="ticker__item">BOQ & Estimation</span>
+            <span class="ticker__item">✦</span>
+            <span class="ticker__item">AI Engineer Assistant</span>
+            <span class="ticker__item">✦</span>
+            <span class="ticker__item">Architecture Design</span>
+            <span class="ticker__item">✦</span>
+            <span class="ticker__item">DOME AI V 5.3.0</span>
+            <span class="ticker__item">✦</span>
+            <span class="ticker__item">BOQ & Estimation</span>
+        </div>
+    </div>
+
+    <!-- APPS SECTION -->
+    <section class="section-padding" id="apps">
+        <h2 class="section-title" data-i18n="apps_title">🤖 تطبيقاتنا ✨</h2>
+        <div class="section-divider"></div>
+
+        <div class="cards-grid">
+            <!-- V1 -->
+            <div class="app-card">
+                <div>
+                    <div class="app-icon">🎨</div>
+                    <h3>DOME AI V 5.3.0</h3>
+                    <p data-i18n="app1_desc">اكتشف طرازك الديكوري ومودبورد الخامات بشكل ذكي واحترافي. احصل على تقرير PDF متكامل بضغطة زر.</p>
+                </div>
+                <a href="https://v1.arch-dome.com" class="btn-main" style="width:100%; padding:12px 0;" data-i18n="app1_btn">🎁 جرب الآن | 1 FREE TRIAL</a>
+            </div>
+
+            <!-- V2 -->
+            <div class="app-card">
+                <div>
+                    <div class="badge-dev" data-i18n="badge_dev">قيد التطوير</div>
+                    <div class="app-icon">🏗️</div>
+                    <h3>BOQ & Estimation (V2)</h3>
+                    <p data-i18n="app2_desc">مقايسة وحساب الكميات بدقة متناهية. وفر وقتك في حساب مواد البناء والتشطيبات الهندسية.</p>
+                </div>
+                <button class="btn-main" style="background:#555; border-color:#333; width:100%; padding:12px 0; cursor:pointer;" onclick="openWaitlist('BOQ & Estimation (V2)')" data-i18n="btn_waitlist">بـلغـنـي لما يجهز 🔔</button>
+            </div>
+
+            <!-- V3 -->
+            <div class="app-card">
+                <div>
+                    <div class="badge-dev" data-i18n="badge_dev">قيد التطوير</div>
+                    <div class="app-icon">👷</div>
+                    <h3>Engineer AI Assistant (V3)</h3>
+                    <p data-i18n="app3_desc">المساعد الشخصي الذكي للمهندس. إجابات فورية على الاستشارات الهندسية وحلول الموقع.</p>
+                </div>
+                <button class="btn-main" style="background:#555; border-color:#333; width:100%; padding:12px 0; cursor:pointer;" onclick="openWaitlist('Engineer AI Assistant (V3)')" data-i18n="btn_waitlist">بـلغـنـي لما يجهز 🔔</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PACKAGES / PRICING -->
+    <section class="section-padding pricing-section" id="packages">
+        <h2 class="section-title" data-i18n="pkg_section_title">🎁 باقات DOME AI V 5.3.0</h2>
+        <div class="section-divider"></div>
+
+        <div class="payment-method-toggle">
+            <button class="method-btn active" id="btn-card" onclick="setMethod('card')" data-i18n="pay_card">💳 بطاقة ائتمان</button>
+            <button class="method-btn" id="btn-wallet" onclick="setMethod('wallet')" data-i18n="pay_wallet">📱 محفظة إلكترونية</button>
+        </div>
+
+        <div class="packages-grid">
+            <!-- 1 Code -->
+            <div class="pkg-card">
+                <div class="pkg-badge">DOME AI V 5.3.0</div>
+                <div class="pkg-title" data-i18n="p1_t">1 كود</div>
+                <div class="pkg-desc" data-i18n="p1_d">مرة واحدة عرض نتائج</div>
+                <div class="pkg-price">5$</div>
+                <a href="https://v1.arch-dome.com/?action=payment&package=v1-1&method=card" id="pkg-link-1" class="btn-pay" data-i18n="btn_pay_secure">💳 ادفع الآن بأمان</a>
+            </div>
+
+            <!-- 10 Codes -->
+            <div class="pkg-card">
+                <div class="pkg-badge">DOME AI V 5.3.0</div>
+                <div class="pkg-title" data-i18n="p2_t">10 أكواد</div>
+                <div class="pkg-desc" data-i18n="p2_d">10 مرات عرض نتائج</div>
+                <div class="pkg-price">48$</div>
+                <a href="https://v1.arch-dome.com/?action=payment&package=v1-10&method=card" id="pkg-link-10" class="btn-pay" data-i18n="btn_pay_secure">💳 ادفع الآن بأمان</a>
+            </div>
+
+            <!-- 25 Codes -->
+            <div class="pkg-card">
+                <div class="pkg-badge">DOME AI V 5.3.0</div>
+                <div class="pkg-title" data-i18n="p3_t">25 كود</div>
+                <div class="pkg-desc" data-i18n="p3_d">25 مرة عرض نتائج</div>
+                <div class="pkg-price">112.5$</div>
+                <a href="https://v1.arch-dome.com/?action=payment&package=v1-25&method=card" id="pkg-link-25" class="btn-pay" data-i18n="btn_pay_secure">💳 ادفع الآن بأمان</a>
+            </div>
+
+            <!-- 50 Codes -->
+            <div class="pkg-card">
+                <div class="pkg-badge">DOME AI V 5.3.0</div>
+                <div class="pkg-title" data-i18n="p4_t">50 كود</div>
+                <div class="pkg-desc" data-i18n="p4_d">50 مرة عرض نتائج</div>
+                <div class="pkg-price">210$</div>
+                <a href="https://v1.arch-dome.com/?action=payment&package=v1-50&method=card" id="pkg-link-50" class="btn-pay" data-i18n="btn_pay_secure">💳 ادفع الآن بأمان</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUICK LOOK (VIDEOS SECTION) -->
+    <section class="section-padding videos-section" id="services">
+        <h2 class="section-title" data-i18n="quick_look">لمحة سريعة</h2>
+        <div class="section-divider"></div>
+
+        <div class="videos-grid">
+            <!-- Video 1 -->
+            <div class="video-card">
+                <video class="video-player" controls preload="metadata" playsinline>
+                    <source src="static/1st%20app.mp4" type="video/mp4">
+                    <source src="static/1st app.mp4" type="video/mp4">
+                    متصفحك لا يدعم تشغيل الفيديو.
+                </video>
+                <div class="video-info">
+                    <h4>DOME AI V 5.3.0</h4>
+                    <p data-i18n="v1_sub">اكتشف طرازك الديكوري ومودبورد الخامات</p>
+                </div>
+            </div>
+
+            <!-- Video 2 -->
+            <div class="video-card">
+                <video class="video-player" controls preload="metadata" playsinline>
+                    <source src="static/2nd%20app.mp4" type="video/mp4">
+                    <source src="static/2nd app.mp4" type="video/mp4">
+                    متصفحك لا يدعم تشغيل الفيديو.
+                </video>
+                <div class="video-info">
+                    <h4>BOQ & Estimation (V2)</h4>
+                    <p data-i18n="app2_desc">مقايسة وحساب الكميات بدقة متناهية</p>
+                </div>
+            </div>
+
+            <!-- Video 3 -->
+            <div class="video-card">
+                <video class="video-player" controls preload="metadata" playsinline>
+                    <source src="static/3rd%20app.mp4" type="video/mp4">
+                    <source src="static/3rd app.mp4" type="video/mp4">
+                    متصفحك لا يدعم تشغيل الفيديو.
+                </video>
+                <div class="video-info">
+                    <h4>Engineer AI Assistant (V3)</h4>
+                    <p data-i18n="app3_desc">المساعد الشخصي الذكي للمهندس</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section-padding how-section" id="how-it-works">
+        <h2 class="section-title" data-i18n="how_title">كيف يعمل النظام؟</h2>
+        <div class="section-divider"></div>
+
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-num">1</div>
+                <h4 data-i18n="step1_t">اختر البرنامج</h4>
+                <p data-i18n="step1_d">اختر البرنامج الذي يناسب احتياجاتك الهندسية أو التصميمية.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">2</div>
+                <h4 data-i18n="step2_t">سجّل الدخول</h4>
+                <p data-i18n="step2_d">أنشئ حسابك الخاص للوصول المباشر إلى لوحة التحكم.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">3</div>
+                <h4 data-i18n="step3_t">جرّب مجاناً</h4>
+                <p data-i18n="step3_d">استمتع بتجربة أولية مجانية لاكتشاف قوة الذكاء الاصطناعي.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">4</div>
+                <h4 data-i18n="step4_t">الترقية والدفع</h4>
+                <p data-i18n="step4_d">اشحن حسابك بأمان عبر Paymob للحصول على أكواد إضافية فوراً.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section-padding" id="about">
+        <h2 class="section-title" data-i18n="about_title">من نحن</h2>
+        <div class="section-divider"></div>
+        <p style="max-width: 820px; margin: 0 auto; text-align: center; font-size: 17px; line-height: 1.85; color: var(--text-dark);" data-i18n="about_desc">
+            نحن شركة متخصصة في توفير حلول تقنية مبتكرة للمهندسين المعماريين والمصممين. نسعى لتبسيط سير العمل الهندسي من خلال برمجيات متطورة تضمن دقة الحسابات، تقلل من الأخطاء، وتوفر وقتك الثمين، لتتمكن من تسليم مشاريعك بكفاءة واحترافية عالية.
+        </p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>DOME</h3>
+                <p data-i18n="footer_desc">حلول هندسية ومعمارية مبتكرة مدعومة بالذكاء الاصطناعي.</p>
+                <div style="display:flex; gap:10px; margin-top:15px;">
+                    <a href="https://wa.me/201024515466" target="_blank" style="background:rgba(255,255,255,0.1); padding:6px 14px; border-radius:6px;">WhatsApp</a>
+                    <a href="mailto:reports@arch-dome.com" style="background:rgba(255,255,255,0.1); padding:6px 14px; border-radius:6px;">Email</a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3 data-i18n="footer_loc">الموقع</h3>
+                <p data-i18n="footer_addr">شارع الدكتور عاطف صدقي، الجيزة، الشيخ زايد، مصر</p>
+                <a href="https://maps.google.com/maps/search/Doctor%20Atef%20Sedky%20Street%2C%20Giza%2C%20Sheikh%20Zayed%2C%20Egypt" target="_blank" style="color:var(--accent-orange); font-weight:bold; margin-top:6px;" data-i18n="view_map">📍 عرض على الخريطة</a>
+            </div>
+
+            <div class="footer-col">
+                <h3 data-i18n="footer_contact">تواصل معنا</h3>
+                <p>📧 reports@arch-dome.com</p>
+                <p dir="ltr" style="text-align:right;">📞 +20 102 451 5466</p>
             </div>
         </div>
 
-        <div class="sidebar-links">
-            <a href="#hero" class="sidebar-link" onclick="closeSidebar()">
-                <span>🏠</span> <span data-i18n="nav_home">الرئيسية</span>
-            </a>
-            <a href="https://v1.arch-dome.com/?action=dashboard" class="sidebar-link sidebar-btn-dash">
-                <span>⚙️</span> <span data-i18n="nav_dash">لوحة التحكم</span>
-            </a>
-            <a href="#apps" class="sidebar-link" onclick="closeSidebar()">
-                <span>🤖</span> <span data-i18n="nav_apps">تطبيقاتنا</span>
-            </a>
-            <a href="#packages" class="sidebar-link" onclick="closeSidebar()">
-                <span>🎁</span> <span data-i18n="nav_pricing">باقات الأسعار</span>
-            </a>
-            <a href="#how-it-works" class="sidebar-link" onclick="closeSidebar()">
-                <span>💡</span> <span data-i18n="nav_how">كيف نعمل</span>
-            </a>
-            <a href="#about" class="sidebar-link" onclick="closeSidebar()">
-                <span>ℹ️</span> <span data-i18n="nav_about">من نحن</span>
-            </a>
-            <a href="#contact" class="sidebar-link" onclick="closeSidebar()">
-                <span>📞</span> <span data-i18n="nav_contact">تواصل معنا</span>
-            </a>
+        <div class="footer-bottom">
+            <p>© 2026 Arch-Dome. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- WAITLIST MODAL -->
+    <div class="modal-overlay" id="waitlist-modal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeWaitlist()">✕</button>
+            <h3 id="waitlist-program-title">برنامج قيد التطوير</h3>
+            <p data-i18n="modal_waitlist_desc">سجل بريدك الإلكتروني لتكون أول من يجرب هذا التطبيق مجاناً فور إطلاقه رسميًا.</p>
+            <input type="email" class="modal-input" id="waitlist-email" placeholder="name@example.com" required>
+            <button class="btn-main" id="waitlist-submit-btn" style="width:100%; border:none; padding:12px 0;" onclick="submitWaitlist()" data-i18n="btn_waitlist_submit">سجل اهتمامك الآن 🚀</button>
+            <div id="waitlist-status" style="margin-top:12px; font-weight:bold; font-size:14px;"></div>
         </div>
     </div>
 
-    <div class="sidebar-footer">
-        <a href="https://v1.arch-dome.com/?action=login" class="btn-main" style="text-align:center; padding:10px 0; font-size:15px;" data-i18n="nav_login">تسجيل الدخول</a>
-        <a href="https://v1.arch-dome.com/?action=logout" class="sidebar-link" style="color:var(--accent-orange); justify-content:center; padding:6px 0;">
-            <span>👋</span> <span data-i18n="nav_logout">تسجيل خروج</span>
-        </a>
-    </div>
-</aside>
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // 1. اكتشاف البيئة بدقة (محلياً مقابل أون لاين)
+        const host = window.location.hostname;
+        const isLocal = host === 'localhost' || 
+                        host === '127.0.0.1' || 
+                        host.startsWith('192.168.') || 
+                        host.startsWith('10.') || 
+                        window.location.protocol === 'file:';
 
-<!-- HEADER -->
-<header>
-    <div class="header-left">
-        <button class="menu-btn" onclick="openSidebar()" aria-label="Open Sidebar">☰</button>
-        <div class="logo">Arch<span>Dome</span></div>
-    </div>
+        const V1_BASE_URL = isLocal ? 'http://localhost:8501' : 'https://v1.arch-dome.com';
 
-    <nav class="header-nav">
-        <ul>
-            <li><a href="#hero" data-i18n="nav_home">الرئيسية</a></li>
-            <li><a href="#apps" data-i18n="nav_apps">تطبيقاتنا</a></li>
-            <li><a href="#packages" data-i18n="nav_pricing">الباقات</a></li>
-            <li><a href="#how-it-works" data-i18n="nav_how">كيف نعمل</a></li>
-            <li><a href="#about" data-i18n="nav_about">من نحن</a></li>
-            <li><a href="#contact" data-i18n="nav_contact">تواصل معنا</a></li>
-        </ul>
-    </nav>
+        let selectedMethod = 'card';
 
-    <div class="header-actions">
-        <button class="lang-btn" id="lang-toggle" onclick="toggleLanguage()">English</button>
-        <a href="https://v1.arch-dome.com/?action=login" class="btn-header-login" data-i18n="nav_login">تسجيل الدخول</a>
-    </div>
-</header>
-
-<!-- HERO SECTION -->
-<section class="hero" id="hero">
-    <div class="hero-content">
-        <h1 data-i18n="hero_title">اكتشف أدواتنا الذكية</h1>
-        <p data-i18n="hero_desc">حلول DOME AI المتكاملة: اكتشف طرازك، احسب كمياتك، واستشر مساعدك الذكي - بسرعة واحترافية.</p>
-        <div class="cta-group">
-            <a href="https://v1.arch-dome.com/?action=trial" class="btn-main" data-i18n="hero_btn1">🎁 جرب DOME V1 مجاناً</a>
-            <a href="#packages" class="btn-outline-white" data-i18n="hero_btn2">استعرض الباقات</a>
-        </div>
-    </div>
-</section>
-
-<!-- TICKER -->
-<div class="ticker-wrap">
-    <div class="ticker">
-        <span class="ticker__item">DOME AI V 5.3.0</span>
-        <span class="ticker__item">✦</span>
-        <span class="ticker__item">BOQ & Estimation</span>
-        <span class="ticker__item">✦</span>
-        <span class="ticker__item">AI Engineer Assistant</span>
-        <span class="ticker__item">✦</span>
-        <span class="ticker__item">Architecture Design</span>
-        <span class="ticker__item">✦</span>
-        <span class="ticker__item">DOME AI V 5.3.0</span>
-        <span class="ticker__item">✦</span>
-        <span class="ticker__item">BOQ & Estimation</span>
-    </div>
-</div>
-
-<!-- APPS SECTION -->
-<section class="section-padding" id="apps">
-    <h2 class="section-title" data-i18n="apps_title">🤖 تطبيقاتنا ✨</h2>
-    <div class="section-divider"></div>
-
-    <div class="cards-grid">
-        <!-- V1 -->
-        <div class="app-card">
-            <div>
-                <div class="app-icon">🎨</div>
-                <h3>DOME AI V 5.3.0</h3>
-                <p data-i18n="app1_desc">اكتشف طرازك الديكوري ومودبورد الخامات بشكل ذكي واحترافي. احصل على تقرير PDF متكامل بضغطة زر.</p>
-            </div>
-            <a href="https://v1.arch-dome.com/?action=trial" class="btn-main" style="width:100%; padding:12px 0;" data-i18n="app1_btn">🎁 جرب الآن | 1 FREE TRIAL</a>
-        </div>
-
-        <!-- V2 -->
-        <div class="app-card">
-            <div>
-                <div class="badge-dev" data-i18n="badge_dev">قيد التطوير</div>
-                <div class="app-icon">🏗️</div>
-                <h3>BOQ & Estimation (V2)</h3>
-                <p data-i18n="app2_desc">مقايسة وحساب الكميات بدقة متناهية. وفر وقتك في حساب مواد البناء والتشطيبات الهندسية.</p>
-            </div>
-            <button class="btn-main" style="background:#555; border-color:#333; width:100%; padding:12px 0; cursor:pointer;" onclick="openWaitlist('BOQ & Estimation (V2)')" data-i18n="btn_waitlist">بـلغـنـي لما يجهز 🔔</button>
-        </div>
-
-        <!-- V3 -->
-        <div class="app-card">
-            <div>
-                <div class="badge-dev" data-i18n="badge_dev">قيد التطوير</div>
-                <div class="app-icon">👷</div>
-                <h3>Engineer AI Assistant (V3)</h3>
-                <p data-i18n="app3_desc">المساعد الشخصي الذكي للمهندس. إجابات فورية على الاستشارات الهندسية وحلول الموقع.</p>
-            </div>
-            <button class="btn-main" style="background:#555; border-color:#333; width:100%; padding:12px 0; cursor:pointer;" onclick="openWaitlist('Engineer AI Assistant (V3)')" data-i18n="btn_waitlist">بـلغـنـي لما يجهز 🔔</button>
-        </div>
-    </div>
-</section>
-
-<!-- PACKAGES / PRICING -->
-<section class="section-padding pricing-section" id="packages">
-    <h2 class="section-title" data-i18n="pkg_section_title">🎁 باقات DOME AI V 5.3.0</h2>
-    <div class="section-divider"></div>
-
-    <div class="payment-method-toggle">
-        <button class="method-btn active" id="btn-card" onclick="setMethod('card')" data-i18n="pay_card">💳 بطاقة ائتمان</button>
-        <button class="method-btn" id="btn-wallet" onclick="setMethod('wallet')" data-i18n="pay_wallet">📱 محفظة إلكترونية</button>
-    </div>
-
-    <div class="packages-grid">
-        <!-- 1 Code -->
-        <div class="pkg-card">
-            <div class="pkg-badge">DOME AI V 5.3.0</div>
-            <div class="pkg-title" data-i18n="p1_t">1 كود</div>
-            <div class="pkg-desc" data-i18n="p1_d">مرة واحدة عرض نتائج</div>
-            <div class="pkg-price">5$</div>
-            <a href="https://v1.arch-dome.com/?action=payment&package=v1-1&method=card" id="pkg-link-1" class="btn-pay" data-i18n="btn_pay_secure">💳 ادفع الآن بأمان</a>
-        </div>
-
-        <!-- 10 Codes -->
-        <div class="pkg-card">
-            <div class="pkg-badge">DOME AI V 5.3.0</div>
-            <div class="pkg-title" data-i18n="p2_t">10 أكواد</div>
-            <div class="pkg-desc" data-i18n="p2_d">10 مرات عرض نتائج</div>
-            <div class="pkg-price">48$</div>
-            <a href="https://v1.arch-dome.com/?action=payment&package=v1-10&method=card" id="pkg-link-10" class="btn-pay" data-i18n="btn_pay_secure">💳 ادفع الآن بأمان</a>
-        </div>
-
-        <!-- 25 Codes -->
-        <div class="pkg-card">
-            <div class="pkg-badge">DOME AI V 5.3.0</div>
-            <div class="pkg-title" data-i18n="p3_t">25 كود</div>
-            <div class="pkg-desc" data-i18n="p3_d">25 مرة عرض نتائج</div>
-            <div class="pkg-price">112.5$</div>
-            <a href="https://v1.arch-dome.com/?action=payment&package=v1-25&method=card" id="pkg-link-25" class="btn-pay" data-i18n="btn_pay_secure">💳 ادفع الآن بأمان</a>
-        </div>
-
-        <!-- 50 Codes -->
-        <div class="pkg-card">
-            <div class="pkg-badge">DOME AI V 5.3.0</div>
-            <div class="pkg-title" data-i18n="p4_t">50 كود</div>
-            <div class="pkg-desc" data-i18n="p4_d">50 مرة عرض نتائج</div>
-            <div class="pkg-price">210$</div>
-            <a href="https://v1.arch-dome.com/?action=payment&package=v1-50&method=card" id="pkg-link-50" class="btn-pay" data-i18n="btn_pay_secure">💳 ادفع الآن بأمان</a>
-        </div>
-    </div>
-</section>
-
-<!-- QUICK LOOK (VIDEOS SECTION) -->
-<section class="section-padding videos-section" id="services">
-    <h2 class="section-title" data-i18n="quick_look">لمحة سريعة</h2>
-    <div class="section-divider"></div>
-
-    <div class="videos-grid">
-        <!-- Video 1 -->
-        <div class="video-card">
-            <video class="video-player" controls preload="metadata" playsinline>
-                <source src="static/1st%20app.mp4" type="video/mp4">
-                <source src="static/1st app.mp4" type="video/mp4">
-                متصفحك لا يدعم تشغيل الفيديو.
-            </video>
-            <div class="video-info">
-                <h4>DOME AI V 5.3.0</h4>
-                <p data-i18n="v1_sub">اكتشف طرازك الديكوري ومودبورد الخامات</p>
-            </div>
-        </div>
-
-        <!-- Video 2 -->
-        <div class="video-card">
-            <video class="video-player" controls preload="metadata" playsinline>
-                <source src="static/2nd%20app.mp4" type="video/mp4">
-                <source src="static/2nd app.mp4" type="video/mp4">
-                متصفحك لا يدعم تشغيل الفيديو.
-            </video>
-            <div class="video-info">
-                <h4>BOQ & Estimation (V2)</h4>
-                <p data-i18n="app2_desc">مقايسة وحساب الكميات بدقة متناهية</p>
-            </div>
-        </div>
-
-        <!-- Video 3 -->
-        <div class="video-card">
-            <video class="video-player" controls preload="metadata" playsinline>
-                <source src="static/3rd%20app.mp4" type="video/mp4">
-                <source src="static/3rd app.mp4" type="video/mp4">
-                متصفحك لا يدعم تشغيل الفيديو.
-            </video>
-            <div class="video-info">
-                <h4>Engineer AI Assistant (V3)</h4>
-                <p data-i18n="app3_desc">المساعد الشخصي الذكي للمهندس</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="section-padding how-section" id="how-it-works">
-    <h2 class="section-title" data-i18n="how_title">كيف يعمل النظام؟</h2>
-    <div class="section-divider"></div>
-
-    <div class="steps-container">
-        <div class="step-card">
-            <div class="step-num">1</div>
-            <h4 data-i18n="step1_t">اختر البرنامج</h4>
-            <p data-i18n="step1_d">اختر البرنامج الذي يناسب احتياجاتك الهندسية أو التصميمية.</p>
-        </div>
-        <div class="step-card">
-            <div class="step-num">2</div>
-            <h4 data-i18n="step2_t">سجّل الدخول</h4>
-            <p data-i18n="step2_d">أنشئ حسابك الخاص للوصول المباشر إلى لوحة التحكم.</p>
-        </div>
-        <div class="step-card">
-            <div class="step-num">3</div>
-            <h4 data-i18n="step3_t">جرّب مجاناً</h4>
-            <p data-i18n="step3_d">استمتع بتجربة أولية مجانية لاكتشاف قوة الذكاء الاصطناعي.</p>
-        </div>
-        <div class="step-card">
-            <div class="step-num">4</div>
-            <h4 data-i18n="step4_t">الترقية والدفع</h4>
-            <p data-i18n="step4_d">اشحن حسابك بأمان عبر Paymob للحصول على أكواد إضافية فوراً.</p>
-        </div>
-    </div>
-</section>
-
-<!-- ABOUT -->
-<section class="section-padding" id="about">
-    <h2 class="section-title" data-i18n="about_title">من نحن</h2>
-    <div class="section-divider"></div>
-    <p style="max-width: 820px; margin: 0 auto; text-align: center; font-size: 17px; line-height: 1.85; color: var(--text-dark);" data-i18n="about_desc">
-        نحن شركة متخصصة في توفير حلول تقنية مبتكرة للمهندسين المعماريين والمصممين. نسعى لتبسيط سير العمل الهندسي من خلال برمجيات متطورة تضمن دقة الحسابات، تقلل من الأخطاء، وتوفر وقتك الثمين، لتتمكن من تسليم مشاريعك بكفاءة واحترافية عالية.
-    </p>
-</section>
-
-<!-- FOOTER -->
-<footer id="contact">
-    <div class="footer-grid">
-        <div class="footer-col">
-            <h3>DOME</h3>
-            <p data-i18n="footer_desc">حلول هندسية ومعمارية مبتكرة مدعومة بالذكاء الاصطناعي.</p>
-            <div style="display:flex; gap:10px; margin-top:15px;">
-                <a href="https://wa.me/201024515466" target="_blank" style="background:rgba(255,255,255,0.1); padding:6px 14px; border-radius:6px;">WhatsApp</a>
-                <a href="mailto:reports@arch-dome.com" style="background:rgba(255,255,255,0.1); padding:6px 14px; border-radius:6px;">Email</a>
-            </div>
-        </div>
-
-        <div class="footer-col">
-            <h3 data-i18n="footer_loc">الموقع</h3>
-            <p data-i18n="footer_addr">شارع الدكتور عاطف صدقي، الجيزة، الشيخ زايد، مصر</p>
-            <a href="https://maps.google.com/maps/search/Doctor%20Atef%20Sedky%20Street%2C%20Giza%2C%20Sheikh%20Zayed%2C%20Egypt" target="_blank" style="color:var(--accent-orange); font-weight:bold; margin-top:6px;" data-i18n="view_map">📍 عرض على الخريطة</a>
-        </div>
-
-        <div class="footer-col">
-            <h3 data-i18n="footer_contact">تواصل معنا</h3>
-            <p>📧 reports@arch-dome.com</p>
-            <p dir="ltr" style="text-align:right;">📞 +20 102 451 5466</p>
-        </div>
-    </div>
-
-    <div class="footer-bottom">
-        <p>© 2026 Arch-Dome. All rights reserved.</p>
-    </div>
-</footer>
-
-<!-- WAITLIST MODAL -->
-<div class="modal-overlay" id="waitlist-modal">
-    <div class="modal-box">
-        <button class="modal-close" onclick="closeWaitlist()">✕</button>
-        <h3 id="waitlist-program-title">برنامج قيد التطوير</h3>
-        <p data-i18n="modal_waitlist_desc">سجل بريدك الإلكتروني لتكون أول من يجرب هذا التطبيق مجاناً فور إطلاقه رسميًا.</p>
-        <input type="email" class="modal-input" id="waitlist-email" placeholder="name@example.com" required>
-        <button class="btn-main" id="waitlist-submit-btn" style="width:100%; border:none; padding:12px 0;" onclick="submitWaitlist()" data-i18n="btn_waitlist_submit">سجل اهتمامك الآن 🚀</button>
-        <div id="waitlist-status" style="margin-top:12px; font-weight:bold; font-size:14px;"></div>
-    </div>
-</div>
-
-<!-- JAVASCRIPT LOGIC -->
-<script>
-    // 1. اكتشاف البيئة بدقة (محلياً مقابل أون لاين)
-    const host = window.location.hostname;
-    const isLocal = host === 'localhost' || 
-                    host === '127.0.0.1' || 
-                    host.startsWith('192.168.') || 
-                    host.startsWith('10.') || 
-                    window.location.protocol === 'file:';
-
-    const V1_BASE_URL = isLocal ? 'http://localhost:8501' : 'https://v1.arch-dome.com';
-
-    let selectedMethod = 'card';
-
-    // 2. مزامنة الروابط ذكياً
-    function syncAppLinks() {
-        document.querySelectorAll('a').forEach(a => {
-            if (a.href && (a.href.includes('v1.arch-dome.com') || a.href.includes('localhost:8501'))) {
-                try {
+        // 2. مزامنة الروابط ذكياً
+        function syncAppLinks() {
+            document.querySelectorAll('a').forEach(a => {
+                if (a.href && (a.href.includes('v1.arch-dome.com') || a.href.includes('localhost:8501'))) {
                     const url = new URL(a.href);
                     a.href = `${V1_BASE_URL}${url.pathname}${url.search}${url.hash}`;
-                } catch(e) {}
-            }
-        });
-        setMethod(selectedMethod);
-    }
-
-    function setMethod(method) {
-        selectedMethod = method;
-        const btnCard = document.getElementById('btn-card');
-        const btnWallet = document.getElementById('btn-wallet');
-        if (btnCard) btnCard.classList.toggle('active', method === 'card');
-        if (btnWallet) btnWallet.classList.toggle('active', method === 'wallet');
-        
-        ['1', '10', '25', '50'].forEach(c => {
-            const link = document.getElementById(`pkg-link-${c}`);
-            if (link) {
-                link.href = `${V1_BASE_URL}/?action=payment&package=v1-${c}&method=${method}`;
-            }
-        });
-    }
-
-    function openSidebar() {
-        document.getElementById('sidebar').classList.add('active');
-        document.getElementById('sidebar-overlay').classList.add('active');
-    }
-
-    function closeSidebar() {
-        document.getElementById('sidebar').classList.remove('active');
-        document.getElementById('sidebar-overlay').classList.remove('active');
-    }
-
-    let currentWaitlistProgram = '';
-    function openWaitlist(programName) {
-        currentWaitlistProgram = programName;
-        document.getElementById('waitlist-program-title').innerText = programName;
-        document.getElementById('waitlist-status').innerText = '';
-        document.getElementById('waitlist-email').value = '';
-        document.getElementById('waitlist-modal').classList.add('active');
-    }
-
-    function closeWaitlist() {
-        document.getElementById('waitlist-modal').classList.remove('active');
-    }
-
-    async function submitWaitlist() {
-        const emailInput = document.getElementById('waitlist-email');
-        const statusBox = document.getElementById('waitlist-status');
-        const submitBtn = document.getElementById('waitlist-submit-btn');
-        const email = emailInput.value.trim();
-
-        if (!email || !email.includes('@')) {
-            statusBox.style.color = '#dc3545';
-            statusBox.innerText = currentLang === 'ar' ? 'يرجى كتابة بريد إلكتروني صحيح' : 'Please enter a valid email';
-            return;
-        }
-
-        submitBtn.disabled = true;
-        statusBox.style.color = '#274055';
-        statusBox.innerText = currentLang === 'ar' ? 'جاري التسجيل...' : 'Registering...';
-
-        try {
-            const res = await fetch(`${V1_BASE_URL}/api/waitlist`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email, program: currentWaitlistProgram })
+                }
             });
+            setMethod(selectedMethod);
+        }
 
-            if (res.ok) {
+        function setMethod(method) {
+            selectedMethod = method;
+            const btnCard = document.getElementById('btn-card');
+            const btnWallet = document.getElementById('btn-wallet');
+            if (btnCard) btnCard.classList.toggle('active', method === 'card');
+            if (btnWallet) btnWallet.classList.toggle('active', method === 'wallet');
+            
+            ['1', '10', '25', '50'].forEach(c => {
+                const link = document.getElementById(`pkg-link-${c}`);
+                if (link) {
+                    link.href = `${V1_BASE_URL}/?action=payment&package=v1-${c}&method=${method}`;
+                }
+            });
+        }
+
+        function openSidebar() {
+            document.getElementById('sidebar').classList.add('active');
+            document.getElementById('sidebar-overlay').classList.add('active');
+        }
+
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('sidebar-overlay').classList.remove('active');
+        }
+
+        let currentWaitlistProgram = '';
+        function openWaitlist(programName) {
+            currentWaitlistProgram = programName;
+            document.getElementById('waitlist-program-title').innerText = programName;
+            document.getElementById('waitlist-status').innerText = '';
+            document.getElementById('waitlist-email').value = '';
+            document.getElementById('waitlist-modal').classList.add('active');
+        }
+
+        function closeWaitlist() {
+            document.getElementById('waitlist-modal').classList.remove('active');
+        }
+
+        async function submitWaitlist() {
+            const emailInput = document.getElementById('waitlist-email');
+            const statusBox = document.getElementById('waitlist-status');
+            const submitBtn = document.getElementById('waitlist-submit-btn');
+            const email = emailInput.value.trim();
+
+            if (!email || !email.includes('@')) {
+                statusBox.style.color = '#dc3545';
+                statusBox.innerText = currentLang === 'ar' ? 'يرجى كتابة بريد إلكتروني صحيح' : 'Please enter a valid email';
+                return;
+            }
+
+            submitBtn.disabled = true;
+            statusBox.style.color = '#274055';
+            statusBox.innerText = currentLang === 'ar' ? 'جاري التسجيل...' : 'Registering...';
+
+            try {
+                const res = await fetch(`${V1_BASE_URL}/api/waitlist`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, program: currentWaitlistProgram })
+                });
+
+                if (res.ok) {
+                    statusBox.style.color = '#28a745';
+                    statusBox.innerText = currentLang === 'ar' ? 'تم تسجيل بريدك بنجاح! شكراً لك 🚀' : 'Successfully registered! Thank you 🚀';
+                    setTimeout(closeWaitlist, 2200);
+                } else {
+                    throw new Error();
+                }
+            } catch (err) {
                 statusBox.style.color = '#28a745';
-                statusBox.innerText = currentLang === 'ar' ? 'تم تسجيل بريدك بنجاح! شكراً لك 🚀' : 'Successfully registered! Thank you 🚀';
-                setTimeout(closeWaitlist, 2200);
-            } else {
-                throw new Error();
+                statusBox.innerText = currentLang === 'ar' ? 'شكراً لاهتمامك! تم تسجيل طلبك بنجاح.' : 'Thank you! Your request has been recorded.';
+                setTimeout(closeWaitlist, 2500);
+            } finally {
+                submitBtn.disabled = false;
             }
-        } catch (err) {
-            statusBox.style.color = '#28a745';
-            statusBox.innerText = currentLang === 'ar' ? 'شكراً لاهتمامك! تم تسجيل طلبك بنجاح.' : 'Thank you! Your request has been recorded.';
-            setTimeout(closeWaitlist, 2500);
-        } finally {
-            submitBtn.disabled = false;
         }
-    }
 
-    const translations = {
-        ar: {
-            sb_welcome: "أهلاً بك",
-            sb_guest: "زائر كريم",
-            nav_home: "الرئيسية",
-            nav_dash: "لوحة التحكم",
-            nav_apps: "تطبيقاتنا",
-            nav_pricing: "الباقات",
-            nav_how: "كيف نعمل",
-            nav_about: "من نحن",
-            nav_contact: "تواصل معنا",
-            nav_login: "تسجيل الدخول",
-            nav_logout: "تسجيل خروج",
-            hero_title: "اكتشف أدواتنا الذكية",
-            hero_desc: "حلول DOME AI المتكاملة: اكتشف طرازك، احسب كمياتك، واستشر مساعدك الذكي - بسرعة واحترافية.",
-            hero_btn1: "🎁 جرب DOME V1 مجاناً",
-            hero_btn2: "استعرض الباقات",
-            apps_title: "🤖 تطبيقاتنا ✨",
-            app1_desc: "اكتشف طرازك الديكوري ومودبورد الخامات بشكل ذكي واحترافي. احصل على تقرير PDF متكامل بضغطة زر.",
-            app1_btn: "🎁 جرب الآن | 1 FREE TRIAL",
-            badge_dev: "قيد التطوير",
-            app2_desc: "مقايسة وحساب الكميات بدقة متناهية. وفر وقتك في حساب مواد البناء والتشطيبات الهندسية.",
-            app3_desc: "المساعد الشخصي الذكي للمهندس. إجابات فورية على الاستشارات الهندسية وحلول الموقع.",
-            btn_waitlist: "بـلغـنـي لما يجهز 🔔",
-            quick_look: "لمحة سريعة",
-            v1_sub: "اكتشف طرازك الديكوري ومودبورد الخامات",
-            pkg_section_title: "🎁 باقات DOME AI V 5.3.0",
-            pay_card: "💳 بطاقة ائتمان",
-            pay_wallet: "📱 محفظة إلكترونية",
-            p1_t: "1 كود", p1_d: "مرة واحدة عرض نتائج",
-            p2_t: "10 أكواد", p2_d: "10 مرات عرض نتائج",
-            p3_t: "25 كود", p3_d: "25 مرة عرض نتائج",
-            p4_t: "50 كود", p4_d: "50 مرة عرض نتائج",
-            btn_pay_secure: "💳 ادفع الآن بأمان",
-            how_title: "كيف يعمل النظام؟",
-            step1_t: "اختر البرنامج", step1_d: "اختر البرنامج الذي يناسب احتياجاتك الهندسية أو التصميمية.",
-            step2_t: "سجّل الدخول", step2_d: "أنشئ حسابك الخاص للوصول المباشر إلى لوحة التحكم.",
-            step3_t: "جرّب مجاناً", step3_d: "استمتع بتجربة أولية مجانية لاكتشاف قوة الذكاء الاصطناعي.",
-            step4_t: "الترقية والدفع", step4_d: "اشحن حسابك بأمان عبر Paymob للحصول على أكواد إضافية فوراً.",
-            about_title: "من نحن",
-            about_desc: "نحن شركة متخصصة في توفير حلول تقنية مبتكرة للمهندسين المعماريين والمصممين. نسعى لتبسيط سير العمل الهندسي من خلال برمجيات متطورة تضمن دقة الحسابات، تقلل من الأخطاء، وتوفر وقتك الثمين، لتتمكن من تسليم مشاريعك بكفاءة واحترافية عالية.",
-            footer_desc: "حلول هندسية ومعمارية مبتكرة مدعومة بالذكاء الاصطناعي.",
-            footer_loc: "الموقع", footer_addr: "شارع الدكتور عاطف صدقي، الجيزة، الشيخ زايد، مصر",
-            view_map: "📍 عرض على الخريطة",
-            footer_contact: "تواصل معنا",
-            modal_waitlist_desc: "سجل بريدك الإلكتروني لتكون أول من يجرب هذا التطبيق مجاناً فور إطلاقه رسميًا.",
-            btn_waitlist_submit: "سجل اهتمامك الآن 🚀"
-        },
-        en: {
-            sb_welcome: "Welcome",
-            sb_guest: "Valued Guest",
-            nav_home: "Home",
-            nav_dash: "Dashboard",
-            nav_apps: "Our Apps",
-            nav_pricing: "Packages",
-            nav_how: "How It Works",
-            nav_about: "About Us",
-            nav_contact: "Contact",
-            nav_login: "Login",
-            nav_logout: "Logout",
-            hero_title: "Discover Our Smart Tools",
-            hero_desc: "DOME AI Integrated Solutions: Discover your style, calculate quantities, and consult your smart assistant - fast and professional.",
-            hero_btn1: "🎁 Try DOME V1 Free",
-            hero_btn2: "Explore Packages",
-            apps_title: "🤖 Our Apps ✨",
-            app1_desc: "Discover your decor style and material moodboard smartly. Get a comprehensive PDF report with a single click.",
-            app1_btn: "🎁 Try Now | 1 FREE TRIAL",
-            badge_dev: "In Development",
-            app2_desc: "Highly accurate BOQ & Estimation. Save time calculating building materials and finishes.",
-            app3_desc: "The smart personal assistant for engineers. Instant answers for engineering consultancies and site solutions.",
-            btn_waitlist: "Notify Me When Ready 🔔",
-            quick_look: "Quick Look",
-            v1_sub: "Discover your Decor Style & Material Moodboard",
-            pkg_section_title: "🎁 DOME AI V 5.3.0 Packages",
-            pay_card: "💳 Credit Card",
-            pay_wallet: "📱 Mobile Wallet",
-            p1_t: "1 Code", p1_d: "One-time results view",
-            p2_t: "10 Codes", p2_d: "10 results views",
-            p3_t: "25 Codes", p3_d: "25 results views",
-            p4_t: "50 Codes", p4_d: "50 results views",
-            btn_pay_secure: "💳 Pay Now Securely",
-            how_title: "How It Works?",
-            step1_t: "Choose App", step1_d: "Select the software tailored to your engineering or architectural needs.",
-            step2_t: "Login", step2_d: "Create your personal account to directly access your dashboard.",
-            step3_t: "Try Free", step3_d: "Enjoy an initial trial to discover the real power of AI.",
-            step4_t: "Upgrade & Pay", step4_d: "Top up securely via Paymob to get additional codes immediately.",
-            about_title: "About Us",
-            about_desc: "We specialize in delivering cutting-edge technical solutions for architects and interior designers. Our goal is to streamline engineering workflows through advanced software ensuring precision, minimizing errors, and saving valuable time.",
-            footer_desc: "Innovative architectural & engineering solutions powered by AI.",
-            footer_loc: "Location", footer_addr: "Dr. Atef Sedky St, Giza, Sheikh Zayed, Egypt",
-            view_map: "📍 View on Map",
-            footer_contact: "Contact Us",
-            modal_waitlist_desc: "Enter your email to be the first to try this application for free upon launch.",
-            btn_waitlist_submit: "Register Your Interest 🚀"
-        }
-    };
-
-    let currentLang = localStorage.getItem('dome_lang') || 'ar';
-
-    function applyLanguage(lang) {
-        currentLang = lang;
-        localStorage.setItem('dome_lang', lang);
-        document.documentElement.lang = currentLang;
-        document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-        document.getElementById('lang-toggle').innerText = currentLang === 'ar' ? 'English' : 'العربية';
-
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (translations[currentLang][key]) {
-                el.innerText = translations[currentLang][key];
+        const translations = {
+            ar: {
+                sb_welcome: "أهلاً بك",
+                sb_guest: "زائر كريم",
+                nav_home: "الرئيسية",
+                nav_dash: "لوحة التحكم",
+                nav_apps: "تطبيقاتنا",
+                nav_pricing: "الباقات",
+                nav_how: "كيف نعمل",
+                nav_about: "من نحن",
+                nav_contact: "تواصل معنا",
+                nav_login: "تسجيل الدخول",
+                nav_logout: "تسجيل خروج",
+                hero_title: "اكتشف أدواتنا الذكية",
+                hero_desc: "حلول DOME AI المتكاملة: اكتشف طرازك، احسب كمياتك، واستشر مساعدك الذكي - بسرعة واحترافية.",
+                hero_btn1: "🎁 جرب DOME V1 مجاناً",
+                hero_btn2: "استعرض الباقات",
+                apps_title: "🤖 تطبيقاتنا ✨",
+                app1_desc: "اكتشف طرازك الديكوري ومودبورد الخامات بشكل ذكي واحترافي. احصل على تقرير PDF متكامل بضغطة زر.",
+                app1_btn: "🎁 جرب الآن | 1 FREE TRIAL",
+                badge_dev: "قيد التطوير",
+                app2_desc: "مقايسة وحساب الكميات بدقة متناهية. وفر وقتك في حساب مواد البناء والتشطيبات الهندسية.",
+                app3_desc: "المساعد الشخصي الذكي للمهندس. إجابات فورية على الاستشارات الهندسية وحلول الموقع.",
+                btn_waitlist: "بـلغـنـي لما يجهز 🔔",
+                quick_look: "لمحة سريعة",
+                v1_sub: "اكتشف طرازك الديكوري ومودبورد الخامات",
+                pkg_section_title: "🎁 باقات DOME AI V 5.3.0",
+                pay_card: "💳 بطاقة ائتمان",
+                pay_wallet: "📱 محفظة إلكترونية",
+                p1_t: "1 كود", p1_d: "مرة واحدة عرض نتائج",
+                p2_t: "10 أكواد", p2_d: "10 مرات عرض نتائج",
+                p3_t: "25 كود", p3_d: "25 مرة عرض نتائج",
+                p4_t: "50 كود", p4_d: "50 مرة عرض نتائج",
+                btn_pay_secure: "💳 ادفع الآن بأمان",
+                how_title: "كيف يعمل النظام؟",
+                step1_t: "اختر البرنامج", step1_d: "اختر البرنامج الذي يناسب احتياجاتك الهندسية أو التصميمية.",
+                step2_t: "سجّل الدخول", step2_d: "أنشئ حسابك الخاص للوصول المباشر إلى لوحة التحكم.",
+                step3_t: "جرّب مجاناً", step3_d: "استمتع بتجربة أولية مجانية لاكتشاف قوة الذكاء الاصطناعي.",
+                step4_t: "الترقية والدفع", step4_d: "اشحن حسابك بأمان عبر Paymob للحصول على أكواد إضافية فوراً.",
+                about_title: "من نحن",
+                about_desc: "نحن شركة متخصصة في توفير حلول تقنية مبتكرة للمهندسين المعماريين والمصممين. نسعى لتبسيط سير العمل الهندسي من خلال برمجيات متطورة تضمن دقة الحسابات، تقلل من الأخطاء، وتوفر وقتك الثمين، لتتمكن من تسليم مشاريعك بكفاءة واحترافية عالية.",
+                footer_desc: "حلول هندسية ومعمارية مبتكرة مدعومة بالذكاء الاصطناعي.",
+                footer_loc: "الموقع", footer_addr: "شارع الدكتور عاطف صدقي، الجيزة، الشيخ زايد، مصر",
+                view_map: "📍 عرض على الخريطة",
+                footer_contact: "تواصل معنا",
+                modal_waitlist_desc: "سجل بريدك الإلكتروني لتكون أول من يجرب هذا التطبيق مجاناً فور إطلاقه رسميًا.",
+                btn_waitlist_submit: "سجل اهتمامك الآن 🚀"
+            },
+            en: {
+                sb_welcome: "Welcome",
+                sb_guest: "Valued Guest",
+                nav_home: "Home",
+                nav_dash: "Dashboard",
+                nav_apps: "Our Apps",
+                nav_pricing: "Packages",
+                nav_how: "How It Works",
+                nav_about: "About Us",
+                nav_contact: "Contact",
+                nav_login: "Login",
+                nav_logout: "Logout",
+                hero_title: "Discover Our Smart Tools",
+                hero_desc: "DOME AI Integrated Solutions: Discover your style, calculate quantities, and consult your smart assistant - fast and professional.",
+                hero_btn1: "🎁 Try DOME V1 Free",
+                hero_btn2: "Explore Packages",
+                apps_title: "🤖 Our Apps ✨",
+                app1_desc: "Discover your decor style and material moodboard smartly. Get a comprehensive PDF report with a single click.",
+                app1_btn: "🎁 Try Now | 1 FREE TRIAL",
+                badge_dev: "In Development",
+                app2_desc: "Highly accurate BOQ & Estimation. Save time calculating building materials and finishes.",
+                app3_desc: "The smart personal assistant for engineers. Instant answers for engineering consultancies and site solutions.",
+                btn_waitlist: "Notify Me When Ready 🔔",
+                quick_look: "Quick Look",
+                v1_sub: "Discover your Decor Style & Material Moodboard",
+                pkg_section_title: "🎁 DOME AI V 5.3.0 Packages",
+                pay_card: "💳 Credit Card",
+                pay_wallet: "📱 Mobile Wallet",
+                p1_t: "1 Code", p1_d: "One-time results view",
+                p2_t: "10 Codes", p2_d: "10 results views",
+                p3_t: "25 Codes", p3_d: "25 results views",
+                p4_t: "50 Codes", p4_d: "50 results views",
+                btn_pay_secure: "💳 Pay Now Securely",
+                how_title: "How It Works?",
+                step1_t: "Choose App", step1_d: "Select the software tailored to your engineering or architectural needs.",
+                step2_t: "Login", step2_d: "Create your personal account to directly access your dashboard.",
+                step3_t: "Try Free", step3_d: "Enjoy an initial trial to discover the real power of AI.",
+                step4_t: "Upgrade & Pay", step4_d: "Top up securely via Paymob to get additional codes immediately.",
+                about_title: "About Us",
+                about_desc: "We specialize in delivering cutting-edge technical solutions for architects and interior designers. Our goal is to streamline engineering workflows through advanced software ensuring precision, minimizing errors, and saving valuable time.",
+                footer_desc: "Innovative architectural & engineering solutions powered by AI.",
+                footer_loc: "Location", footer_addr: "Dr. Atef Sedky St, Giza, Sheikh Zayed, Egypt",
+                view_map: "📍 View on Map",
+                footer_contact: "Contact Us",
+                modal_waitlist_desc: "Enter your email to be the first to try this application for free upon launch.",
+                btn_waitlist_submit: "Register Your Interest 🚀"
             }
-        });
-    }
+        };
 
-    function toggleLanguage() {
-        applyLanguage(currentLang === 'ar' ? 'en' : 'ar');
-    }
+        let currentLang = localStorage.getItem('dome_lang') || 'ar';
 
-    // تشغيل فوري وتطبيق الإعدادات
-    applyLanguage(currentLang);
-    syncAppLinks();
-    window.addEventListener('DOMContentLoaded', syncAppLinks);
-</script>
+        function applyLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('dome_lang', lang);
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            document.getElementById('lang-toggle').innerText = currentLang === 'ar' ? 'English' : 'العربية';
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.innerText = translations[currentLang][key];
+                }
+            });
+        }
+
+        function toggleLanguage() {
+            applyLanguage(currentLang === 'ar' ? 'en' : 'ar');
+        }
+
+        // تشغيل فوري وتطبيق الإعدادات
+        applyLanguage(currentLang);
+        syncAppLinks();
+        window.addEventListener('DOMContentLoaded', syncAppLinks);
+    </script>
+</body>
+</html>
