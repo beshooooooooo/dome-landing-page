@@ -513,6 +513,62 @@
         .pkg-desc { font-size: 13px; color: #d1d5db; margin-bottom: 15px; }
         .pkg-price { font-size: 32px; font-weight: 800; margin-bottom: 20px; color: #ffffff; }
 
+        /* 🎯 تصميم مخصص لتكبير الأسعار المشطوبة وإبراز الخصم */
+        .old-price-usd {
+            font-size: 26px !important;
+            font-weight: 700 !important;
+            color: #a0aec0 !important;
+            text-decoration: line-through !important;
+            text-decoration-color: #BD583B !important;
+            text-decoration-thickness: 2.5px !important;
+            opacity: 0.9 !important;
+            margin: 0 4px;
+        }
+
+        .new-price-usd {
+            font-size: 34px !important;
+            font-weight: 800 !important;
+            color: #ffffff !important;
+            line-height: 1.1;
+            margin: 0 4px;
+        }
+
+        .old-price-egp {
+            font-size: 16px !important;
+            font-weight: 700 !important;
+            color: #a0aec0 !important;
+            text-decoration: line-through !important;
+            text-decoration-color: #BD583B !important;
+            text-decoration-thickness: 2px !important;
+            opacity: 0.85 !important;
+            margin: 0 4px;
+        }
+
+        .new-price-egp {
+            font-size: 16px !important;
+            font-weight: 800 !important;
+            color: #E5D0C1 !important;
+            background: rgba(0, 0, 0, 0.35) !important;
+            padding: 4px 10px !important;
+            border-radius: 8px !important;
+            border: 1px solid rgba(189, 88, 59, 0.3) !important;
+            margin: 0 4px;
+        }
+
+        /* 🎯 شارة الإصدار المصغرة في العناوين والبادجات */
+        .version-tag {
+            font-size: 11px !important;
+            font-weight: 600 !important;
+            opacity: 0.65 !important;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 5px;
+            letter-spacing: 0.5px;
+            background: rgba(39, 64, 85, 0.12);
+            padding: 2px 8px;
+            border-radius: 8px;
+        }
+
         .btn-pay {
             background: linear-gradient(to bottom, var(--accent-orange), var(--accent-hover));
             color: white !important;
@@ -875,7 +931,12 @@
 
     <!-- PACKAGES / PRICING -->
     <section class="section-padding pricing-section" id="packages">
-        <h2 class="section-title" data-i18n="pkg_section_title">🎁 باقات DOME AI <span style="font-size: 14px; font-weight: normal; opacity: 0.65;">v5.3.0</span></h2>
+        <!-- عنوان الباقات مع تصغير الفيرجن وفصله عن الترجمة لمنع تكبيره -->
+        <h2 class="section-title">
+            <span>🎁</span>
+            <span data-i18n="pkg_section_title_text">باقات DOME AI</span>
+            <span class="version-tag">v5.3.0</span>
+        </h2>
         <div class="section-divider"></div>
 
         <div class="payment-method-toggle">
@@ -886,17 +947,17 @@
         <div class="packages-grid">
             <!-- 1 Code -->
             <div class="pkg-card">
-                <div class="pkg-badge">DOME AI <span style="font-size: 9px; opacity: 0.75;">v5.3.0</span></div>
+                <div class="pkg-badge">DOME AI <span class="version-tag" style="font-size: 9px !important; background: transparent; padding: 0;">v5.3.0</span></div>
                 <div class="pkg-title" data-i18n="p1_t">1 كود</div>
                 <div class="pkg-desc" data-i18n="p1_d">مرة واحدة عرض نتائج</div>
                 <div class="pkg-price">
                     <div style="display: flex; align-items: baseline; justify-content: center; gap: 8px;">
-                        <span style="font-size: 24px; font-weight: 700; color: #a0aec0; text-decoration: line-through;">5$</span>
-                        <span style="font-size: 34px; font-weight: 800; color: #ffffff;">3$</span>
+                        <span class="old-price-usd">5$</span>
+                        <span class="new-price-usd">3$</span>
                     </div>
-                    <div style="font-size: 15px; font-weight: 700; margin-top: 6px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                        <span style="text-decoration: line-through; color: #a0aec0; font-size: 15px;" data-i18n="p1_old_egp">250 ج.م</span>
-                        <span style="color: #BD583B; font-size: 16px; font-weight: 800;" data-i18n="p1_new_egp">150 ج.م</span>
+                    <div style="margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <span class="old-price-egp" data-i18n="p1_old_egp">250 ج.م</span>
+                        <span class="new-price-egp" data-i18n="p1_new_egp">150 ج.م</span>
                     </div>
                 </div>
                 <a href="https://v1.arch-dome.com/?action=payment&package=v1-1&method=card" id="pkg-link-1" class="btn-pay" data-i18n="btn_pay_secure">💳 ادفع الآن بأمان</a>
@@ -904,17 +965,17 @@
 
             <!-- 10 Codes -->
             <div class="pkg-card">
-                <div class="pkg-badge">DOME AI <span style="font-size: 9px; opacity: 0.75;">v5.3.0</span></div>
+                <div class="pkg-badge">DOME AI <span class="version-tag" style="font-size: 9px !important; background: transparent; padding: 0;">v5.3.0</span></div>
                 <div class="pkg-title" data-i18n="p2_t">10 أكواد</div>
                 <div class="pkg-desc" data-i18n="p2_d">10 مرات عرض نتائج</div>
                 <div class="pkg-price">
                     <div style="display: flex; align-items: baseline; justify-content: center; gap: 8px;">
-                        <span style="font-size: 24px; font-weight: 700; color: #a0aec0; text-decoration: line-through;">48$</span>
-                        <span style="font-size: 34px; font-weight: 800; color: #ffffff;">27$</span>
+                        <span class="old-price-usd">48$</span>
+                        <span class="new-price-usd">27$</span>
                     </div>
-                    <div style="font-size: 15px; font-weight: 700; margin-top: 6px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                        <span style="text-decoration: line-through; color: #a0aec0; font-size: 15px;" data-i18n="p2_old_egp">2,400 ج.م</span>
-                        <span style="color: #BD583B; font-size: 16px; font-weight: 800;" data-i18n="p2_new_egp">1,350 ج.م</span>
+                    <div style="margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <span class="old-price-egp" data-i18n="p2_old_egp">2,400 ج.م</span>
+                        <span class="new-price-egp" data-i18n="p2_new_egp">1,350 ج.م</span>
                     </div>
                 </div>
                 <a href="https://v1.arch-dome.com/?action=payment&package=v1-10&method=card" id="pkg-link-10" class="btn-pay" data-i18n="btn_pay_secure">💳 ادفع الآن بأمان</a>
@@ -922,17 +983,17 @@
 
             <!-- 25 Codes -->
             <div class="pkg-card">
-                <div class="pkg-badge">DOME AI <span style="font-size: 9px; opacity: 0.75;">v5.3.0</span></div>
+                <div class="pkg-badge">DOME AI <span class="version-tag" style="font-size: 9px !important; background: transparent; padding: 0;">v5.3.0</span></div>
                 <div class="pkg-title" data-i18n="p3_t">25 كود</div>
                 <div class="pkg-desc" data-i18n="p3_d">25 مرة عرض نتائج</div>
                 <div class="pkg-price">
                     <div style="display: flex; align-items: baseline; justify-content: center; gap: 8px;">
-                        <span style="font-size: 24px; font-weight: 700; color: #a0aec0; text-decoration: line-through;">112.5$</span>
-                        <span style="font-size: 34px; font-weight: 800; color: #ffffff;">63.75$</span>
+                        <span class="old-price-usd">112.5$</span>
+                        <span class="new-price-usd">63.75$</span>
                     </div>
-                    <div style="font-size: 15px; font-weight: 700; margin-top: 6px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                        <span style="text-decoration: line-through; color: #a0aec0; font-size: 15px;" data-i18n="p3_old_egp">5,600 ج.م</span>
-                        <span style="color: #BD583B; font-size: 16px; font-weight: 800;" data-i18n="p3_new_egp">3,185 ج.م</span>
+                    <div style="margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <span class="old-price-egp" data-i18n="p3_old_egp">5,600 ج.م</span>
+                        <span class="new-price-egp" data-i18n="p3_new_egp">3,185 ج.م</span>
                     </div>
                 </div>
                 <a href="https://v1.arch-dome.com/?action=payment&package=v1-25&method=card" id="pkg-link-25" class="btn-pay" data-i18n="btn_pay_secure">💳 ادفع الآن بأمان</a>
@@ -940,17 +1001,17 @@
 
             <!-- 50 Codes -->
             <div class="pkg-card">
-                <div class="pkg-badge">DOME AI <span style="font-size: 9px; opacity: 0.75;">v5.3.0</span></div>
+                <div class="pkg-badge">DOME AI <span class="version-tag" style="font-size: 9px !important; background: transparent; padding: 0;">v5.3.0</span></div>
                 <div class="pkg-title" data-i18n="p4_t">50 كود</div>
                 <div class="pkg-desc" data-i18n="p4_d">50 مرة عرض نتائج</div>
                 <div class="pkg-price">
                     <div style="display: flex; align-items: baseline; justify-content: center; gap: 8px;">
-                        <span style="font-size: 24px; font-weight: 700; color: #a0aec0; text-decoration: line-through;">210$</span>
-                        <span style="font-size: 34px; font-weight: 800; color: #ffffff;">120$</span>
+                        <span class="old-price-usd">210$</span>
+                        <span class="new-price-usd">120$</span>
                     </div>
-                    <div style="font-size: 15px; font-weight: 700; margin-top: 6px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                        <span style="text-decoration: line-through; color: #a0aec0; font-size: 15px;" data-i18n="p4_old_egp">10,500 ج.م</span>
-                        <span style="color: #BD583B; font-size: 16px; font-weight: 800;" data-i18n="p4_new_egp">6,000 ج.م</span>
+                    <div style="margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <span class="old-price-egp" data-i18n="p4_old_egp">10,500 ج.م</span>
+                        <span class="new-price-egp" data-i18n="p4_new_egp">6,000 ج.م</span>
                     </div>
                 </div>
                 <a href="https://v1.arch-dome.com/?action=payment&package=v1-50&method=card" id="pkg-link-50" class="btn-pay" data-i18n="btn_pay_secure">💳 ادفع الآن بأمان</a>
@@ -1109,8 +1170,11 @@
 
         let selectedMethod = 'card';
 
-        // 2. مزامنة الروابط ذكياً
+        // 2. مزامنة الروابط ذكياً والاحتفاظ بالبريد وحالة تسجيل الدخول
         function syncAppLinks() {
+            const savedEmail = localStorage.getItem('dome_user_email') || '';
+            const emailParam = savedEmail ? `&email=${encodeURIComponent(savedEmail)}` : '';
+
             document.querySelectorAll('a').forEach(a => {
                 if (a.href && (a.href.includes('v1.arch-dome.com') || a.href.includes('localhost:8501'))) {
                     try {
@@ -1129,10 +1193,13 @@
             if (btnCard) btnCard.classList.toggle('active', method === 'card');
             if (btnWallet) btnWallet.classList.toggle('active', method === 'wallet');
             
+            const savedEmail = localStorage.getItem('dome_user_email') || '';
+            const emailQuery = savedEmail ? `&email=${encodeURIComponent(savedEmail)}` : '';
+
             ['1', '10', '25', '50'].forEach(c => {
                 const link = document.getElementById(`pkg-link-${c}`);
                 if (link) {
-                    link.href = `${V1_BASE_URL}/?action=payment&package=v1-${c}&method=${method}`;
+                    link.href = `${V1_BASE_URL}/?action=payment&package=v1-${c}&method=${method}${emailQuery}`;
                 }
             });
         }
@@ -1230,7 +1297,7 @@
                 btn_waitlist: "بـلغـنـي لما يجهز 🔔",
                 quick_look: "لمحة سريعة",
                 v1_sub: "اكتشف طرازك الديكوري ومودبورد الخامات",
-                pkg_section_title: "🎁 باقات DOME AI V 5.3.0",
+                pkg_section_title_text: "باقات DOME AI",
                 pay_card: "💳 بطاقة ائتمان",
                 pay_wallet: "📱 محفظة إلكترونية",
                 p1_t: "1 كود", p1_d: "مرة واحدة عرض نتائج", p1_old_egp: "250 ج.م", p1_new_egp: "150 ج.م",
@@ -1277,7 +1344,7 @@
                 btn_waitlist: "Notify Me When Ready 🔔",
                 quick_look: "Quick Look",
                 v1_sub: "Discover your Decor Style & Material Moodboard",
-                pkg_section_title: "🎁 DOME AI V 5.3.0 Packages",
+                pkg_section_title_text: "DOME AI Packages",
                 pay_card: "💳 Credit Card",
                 pay_wallet: "📱 Mobile Wallet",
                 p1_t: "1 Code", p1_d: "One-time results view", p1_old_egp: "250 EGP", p1_new_egp: "150 EGP",
@@ -1316,7 +1383,20 @@
                     el.innerText = translations[currentLang][key];
                 }
             });
+
+            // 🎯 تحديث بيانات المستخدم في السايدبار إذا كانت محفوظة
+            const savedUser = localStorage.getItem('dome_username');
+            if (savedUser) {
+                const guestEl = document.querySelector('[data-i18n="sb_guest"]');
+                if (guestEl) guestEl.innerText = savedUser;
+            }
         }
+
+        // قراءة وتثبيت بيانات المستخدم الواردة من المنصة
+        const incomingUser = incomingParams.get('user');
+        const incomingEmail = incomingParams.get('email');
+        if (incomingUser) localStorage.setItem('dome_username', incomingUser);
+        if (incomingEmail) localStorage.setItem('dome_user_email', incomingEmail);
 
         function toggleLanguage() {
             applyLanguage(currentLang === 'ar' ? 'en' : 'ar');
