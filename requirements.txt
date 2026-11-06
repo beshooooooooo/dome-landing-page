@@ -1,1 +1,1 @@
-# No external dependencies required (Built-in standard library)
+psycopg2-binary
