@@ -1231,7 +1231,7 @@
             document.getElementById('waitlist-modal').classList.remove('active');
         }
 
-        function submitWaitlist() {
+        async function submitWaitlist() {
             const emailInput = document.getElementById('waitlist-email');
             const statusBox = document.getElementById('waitlist-status');
             const submitBtn = document.getElementById('waitlist-submit-btn');
@@ -1239,21 +1239,52 @@
 
             if (!email || !email.includes('@')) {
                 statusBox.style.color = '#dc3545';
-                statusBox.innerText = currentLang === 'ar' ? 'يرجى كتابة بريد إلكتروني صحيح' : 'Please enter a valid email';
+                statusBox.innerText = currentLang === 'ar' ? '⚠️ يرجى كتابة بريد إلكتروني صحيح' : '⚠️ Please enter a valid email';
                 return;
             }
 
             submitBtn.disabled = true;
             statusBox.style.color = '#274055';
-            statusBox.innerText = currentLang === 'ar' ? 'جاري التحقق والتوجيه للمنصة...' : 'Checking & Connecting...';
+            statusBox.innerText = currentLang === 'ar' ? '⏳ جاري التحقق وتسجيل طلبك...' : '⏳ Checking & Registering...';
 
             const progKey = (currentWaitlistProgram.includes('3') || currentWaitlistProgram.includes('V3')) ? 'v3' : 'v2';
 
-            setTimeout(() => {
-                window.location.href = `${V1_BASE_URL}/?action=waitlist&program=${encodeURIComponent(progKey)}&email=${encodeURIComponent(email)}`;
-            }, 300);
-        }
+            try {
+                // إرسال الطلب في الخلفية لخادم صفحة الهبوط مباشرة دون مغادرة الصفحة
+                const res = await fetch('/api/waitlist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, program: progKey })
+                });
 
+                const data = await res.json();
+
+                if (data.status === "exists") {
+                    // نفس رسالة التحذير الذكية الموجودة في البرنامج
+                    statusBox.style.color = '#BD583B';
+                    statusBox.innerText = currentLang === 'ar' 
+                        ? '⚠️ هذا البريد الإلكتروني مسجل بالفعل في قائمة انتظار هذا البرنامج!' 
+                        : '⚠️ This email is already registered on the waitlist for this program!';
+                } else if (data.status === "new" || data.status === "updated") {
+                    // رسالة النجاح الخضراء
+                    statusBox.style.color = '#28a745';
+                    statusBox.innerText = currentLang === 'ar' 
+                        ? '🎉 تم حجز مكانك وإرسال رسالة التأكيد بنجاح! 🚀' 
+                        : '🎉 You have been registered and a confirmation email has been sent! 🚀';
+                    emailInput.value = '';
+                    setTimeout(closeWaitlist, 3000);
+                } else {
+                    throw new Error(data.message || 'Error');
+                }
+            } catch (err) {
+                statusBox.style.color = '#dc3545';
+                statusBox.innerText = currentLang === 'ar' 
+                    ? '❌ حدث خطأ أثناء الاتصال بقاعدة البيانات، يرجى المحاولة لاحقاً.' 
+                    : '❌ An error occurred, please try again later.';
+            } finally {
+                submitBtn.disabled = false;
+            }
+        }
         const translations = {
             ar: {
                 sb_welcome: "أهلاً بك",
